@@ -1,0 +1,76 @@
+/*大标题*/
+.titleBlue {
+  color: #536844;
+}
+
+.titleYellow {
+  color: #362e2b;
+}
+
+/*模块标题*/
+.moduleTileBlue {
+  color: #536844;
+  font-weight: 600;
+}
+
+.moduleTileYellow {
+  color: #536844;
+  font-weight: 600;
+}
+
+/*模块背景色*/
+.moduleBgBlue {
+  background: #d2dcc550;
+  border: 1px solid #b9b9aa;
+}
+
+.moduleBgYellow {
+  background: #f4cd8189;
+  border: 2px solid #fcd075;
+}
+
+/*地图下侧地点样式*/
+.mapAreaBlue {
+  background: #edf1e4;
+}
+
+.mapAreaYellow {
+  background: #f3aa3a;
+}
+
+.mapAreaLiTitleBlue {
+  color: #8c734e;
+}
+
+.mapAreaLiTitleYellow {
+  color: #312b23;
+}
+
+.mapAreaLiSpanBlue {
+  color: #967f5d;
+}
+
+.mapAreaLiSpanYellow {
+  color: #675742;
+}
+
+/*表格颜色*/
+.tableBlue {
+  color: #674f2a;
+}
+
+.tableYellow {
+  color: #736541;
+}
+
+.list_item_on {
+  background: #cad5ba;
+  height: 30px;
+}
+
+.list_item_off {
+  background: #c1cfb2;
+  height: 30px;
+
+}
+

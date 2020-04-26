@@ -1,0 +1,316 @@
+/*
+ *  模块样式
+ */
+/*地图*/
+.amap-logo {
+  display: none!important;
+}
+
+.amap-ui-control-theme-dark .amap-ui-control-zoom a {
+  background: #15618F!important;
+}
+
+.amap-copyright {
+  display: none!important;
+}
+
+/*数据表格*/
+.dataList .el-table__body {
+  width: 100%!important;
+}
+
+.module table {
+  width: 100%;
+  height: 100%;
+  border-collapse:collapse;
+}
+
+.module table th,
+.module table td {
+  font-size: 10px;
+  font-weight: 400!important;
+}
+
+/*首页报警列表弹窗*/
+.content-window-card {
+  position: relative;
+  box-shadow: none;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  padding: 0;
+}
+
+.content-window-card p {
+  height: 2rem;
+}
+
+.custom-info {
+  border: solid 1px #CDDABF;
+  width: 260px;
+  height: 300px;
+  overflow: auto;
+  border-radius: 10px;
+  background: rgba(210, 216, 213, 1);
+  background-size: 100% 100%;
+  overflow: auto;
+  position: relative;
+}
+
+.custom-info .info-top {
+  text-align: right;
+}
+
+.custom-info .info-top img {
+  margin-top: 4px;
+  margin-right: 6px;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+div.info-middle {
+  font-size: 12px;
+  padding: 2px 12px 12px 12px;
+  line-height: 20px;
+  color: #868585;
+  height: 250px;
+}
+
+.custom-info::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+  scrollbar-arrow-color:red;
+
+}
+.custom-info::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(205,218,191,0.2);
+  background: rgba(95,239,241,0.2);
+  scrollbar-arrow-color:red;
+}
+.custom-info::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(232,237,222,0);
+  border-radius: 0;
+  background: rgba(95,239,241,0);
+}
+
+.custom-info {
+  scrollbar-arrow-color: #f4ae21; /**//*三角箭头的颜色*/
+  scrollbar-face-color: #333; /**//*立体滚动条的颜色*/
+  scrollbar-3dlight-color: #666; /**//*立体滚动条亮边的颜色*/
+  scrollbar-highlight-color: #666; /**//*滚动条空白部分的颜色*/
+  scrollbar-shadow-color: #999; /**//*立体滚动条阴影的颜色*/
+  scrollbar-darkshadow-color: #666; /**//*立体滚动条强阴影的颜色*/
+  scrollbar-track-color: #666; /**//*立体滚动条背景颜色*/
+  scrollbar-base-color:#f8f8f8; /**//*滚动条的基本颜色*/
+}
+
+/*地图标签*/
+.amap-marker-label {
+  border: none!important;
+  padding: 0!important;
+}
+
+.ptLabel {
+  padding: 3px 6px;
+  background: #393F64;
+  color: #eee;
+}
+
+/*保障点列表*/
+.list .mCSB_scrollTools .mCSB_draggerRail {
+  background-color: rgba(83,92,121, 0.1);
+}
+
+/*保障点搜索*/
+.searchArea .el-input__inner {
+  font-size: 14px!important;
+  -webkit-appearance: none;
+  background-color: rgba(194,208,179,0.6);
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid #63FAFB;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #536844;
+  display: inline-block;
+  font-size: inherit;
+  height: 32px;
+  line-height: 32px;
+  outline: 0;
+  padding: 0 15px;
+  -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+  transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+  width: 100%;
+}
+
+/*下拉框*/
+.el-select-dropdown {
+  border: none!important;
+}
+
+.el-scrollbar__view {
+  background-color: #F3F5E7!important;
+  border: none!important;
+  padding: 0!important;
+}
+
+.el-select-dropdown__item {
+  background-color: #F3F5E7!important;
+  border: none!important;
+}
+
+.el-select-dropdown__item span {
+  color: #536844!important;
+}
+
+/*输入框placeholder*/
+input::-webkit-input-placeholder{
+  color:#536844!important;
+  font-size: 14px!important;
+}
+
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#536844!important;
+  font-size: 14px!important;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#536844!important;
+  font-size: 14px!important;
+}
+
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#536844!important;
+  font-size: 14px!important;
+}
+
+/*pc地理围栏*/
+.containerRail .rightRadio .el-radio-button .el-radio-button__inner {
+  border: 1px solid #DCDFE6;
+}
+
+.bottom .el-table__row:hover {
+  cursor: pointer;
+}
+
+/*账号权限*/
+.containerUserManage .addSearchArea .el-input {
+  width: 258px;
+  height: 40px;
+  border: 1px solid #C2CFB5;
+}
+
+.containerUserManage .addSearchArea .el-input input {
+  height: 40px;
+  line-height: 40px;
+}
+
+.containerUserManage .userListArea .el-table th {
+  background-color: #D2DCC5;
+}
+
+.containerUserManage .userListArea .el-table .sort-caret.ascending {
+  border-bottom-color: #403F41;
+}
+
+.containerUserManage .userListArea .el-table tr {
+  background-color: #E3E9D8;
+}
+
+.containerUserManage .userListArea .el-table tr td {
+  border-bottom: 1px solid #D6DAD0;
+}
+
+.containerUserManage .userListArea .el-pager .active {
+  background-color: #B8C1AD!important;
+  color: #43463E!important;
+}
+
+.containerUserManage .userListArea .el-table__body {
+  width: 100%!important;
+}
+
+.containerUserManage .userListArea .mCSB_container_wrapper {
+  background: #E3E9D8!important;
+}
+
+.containerUserManage .el-form-item {
+  margin-bottom: 20px;
+}
+
+/*弹窗*/
+.containerUserManage .el-dialog {
+  background: #DDE3C8;
+}
+
+.containerUserManage .el-dialog input {
+  background: #e9f1cd;
+}
+
+.containerUserManage .el-dialog ul {
+  width: 100%;
+}
+
+.containerUserManage .el-dialog li {
+  float: left;
+  width: 100%;
+  height: 40px;
+}
+
+.containerUserManage .el-dialog li:nth-child(2n) {
+  background-color: #D0D8B4;
+}
+
+.containerUserManage .el-dialog li:nth-child(2n + 1) {
+  background-color: #DDE3C8;
+}
+
+.containerUserManage .el-dialog li .showTitle {
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  color: #5A5D4D;
+  margin-left: 20px;
+}
+
+.containerUserManage .el-dialog li .showCon {
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+  color: #161613;
+  margin-left: 10px;
+}
+
+.containerUserManage .el-dialog .dialog-footer {
+  margin-top: 20px;
+}
+
+.containerUserManage .el-dialog .submit {
+  background: #b6be9b;
+  font-weight: bold;
+  color: #161613;
+  border: none;
+}
+
+.containerUserManage .el-dialog .close {
+  background: #D0D8B4;
+  font-weight: bold;
+  color: #161613;
+}
+
+.containerUserManage .el-select {
+  width: 100%!important;
+}
+
+/*账号列表-移动端*/
+.containerUserMove .userListArea .el-table td,
+.containerUserMove .userListArea .el-table th {
+  padding: 5px 0;
+}
+
+
+.containerAddUserMove .el-select {
+  width: 100%!important;
+}
