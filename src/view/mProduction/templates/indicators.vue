@@ -110,7 +110,7 @@
 
 <style lang="scss" scoped>
 .step {
-  
+  margin-bottom: 10px;
   .colora {
     color: #3d67b7;
   }

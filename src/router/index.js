@@ -166,5 +166,10 @@ export default new Router({
       name: 'mProduction',
       component: resolve => require(['@/view/mProduction/index'], resolve)
     },
+    {
+      path: '/mProduction/detail',
+      name: 'mProductionDetail',
+      component: resolve => require(['@/view/mProduction/detail'], resolve)
+    },
   ]
 })

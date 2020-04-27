@@ -13,8 +13,13 @@
 
     <!--展示区-->
     <div class="main">
+      <!-- tab1 -->
       <div v-if="activeName == 'first'" class="stepOne">
         <indicators /> 
+        <search />
+        <search />
+
+        <div style="height: 100px;"></div>
       </div>
     </div>
 
@@ -27,11 +32,14 @@
 </template>
 
 <script>
+// tab1
 import indicators from './templates/indicators'
+import search from './templates/search'
 export default {
   name: "work",
   components: {
-    indicators
+    indicators,
+    search
   },
   data() {
     return {
@@ -101,6 +109,7 @@ export default {
     .main {
       width: calc(100% - 40px);
       height: calc(100% - 90px);
+      overflow: auto;
       padding: 100px 20px 20px 20px;
     }
 
