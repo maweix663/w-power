@@ -13,7 +13,9 @@
 
     <!--展示区-->
     <div class="main">
-      <stepOne />
+      <div class="stepOne">
+        <indicators /> 
+      </div>
     </div>
 
     <!--返回武汉按钮-->
@@ -25,11 +27,11 @@
 </template>
 
 <script>
-import stepOne from './stepOne'
+import indicators from './templates/indicators'
 export default {
   name: "work",
   components: {
-    stepOne
+    indicators
   },
   data() {
     return {
