@@ -2,86 +2,47 @@
   <div class="step" >
     <div class="box">
       <div class="head">
-        关键指标
-        <p @click="detai"><i class="el-icon-warning-outline"></i>指标说明</p>
+        明细查询
+        <p></p>
       </div>
 
       <div class="body">
-        <div class="flex">
-          <div class="flex-column">
-            <p class="text-head">较上日<span class="blue">-135</span></p>
-            <p class="text-content blue">1217</p>
-            <p class="text-title">监测总户数</p>
-          </div>
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+          <el-form-item style="margin-bottom: 20px;" label="供电单位" prop="region">
+            <el-select size="small" v-model="ruleForm.region" placeholder="请选择">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
 
-          <div class="content">
-            <p class="text-head">较上日<span class="red">-135</span></p>
-            <p class="text-content red">1217</p>
-            <p class="text-title">监测总户数</p>
-          </div>
+          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单位" prop="region">
+            <el-select v-model="ruleForm.region" placeholder="请选择">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
 
-          <div class="flex-column">
-            <p class="text-head">较上日<span class="green">-135</span></p>
-            <p class="text-content green">1217</p>
-            <p class="text-title">监测总户数</p>
-          </div>
+          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单位" prop="region">
+            <el-select v-model="ruleForm.region" placeholder="请选择">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单位" prop="region">
+            <el-select v-model="ruleForm.region" placeholder="请选择">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+
+        <div style="text-align: center;">
+          <a @click="search" class="btn">搜索</a>
         </div>
-
-        <div class="flex" style="border-bottom: 0;">
-          <div class="flex-column">
-            <p class="text-head">较上日<span class="blue">-135</span></p>
-            <p class="text-content blue">1217</p>
-            <p class="text-title">监测总户数</p>
-          </div>
-
-          <div class="content">
-            <p class="text-head">较上日<span class="red">-135</span></p>
-            <p class="text-content red">1217</p>
-            <p class="text-title">监测总户数</p>
-          </div>
-
-          <div class="flex-column">
-            <p class="text-head">较上日<span class="green">-135</span></p>
-            <p class="text-content green">1217</p>
-            <p class="text-title">监测总户数</p>
-          </div>
-        </div>
-
-        <p class="data">统计日期：2020-04-22</p>
+        
       </div>
     </div>
-    
-    <el-dialog
-      title="指标说明"
-      :visible.sync="dialogVisible"
-      width="80%">
-      <div class="diaBox">
-        <div class="text">
-          <p>企业复工电力指数</p>
-          <span>（复工率x0.5 + 复产率x0.5）x 100</span>
-        </div>
-
-        <div class="text">
-          <p>复工率</p>
-          <span>复工企业（日电量≥30%日均电量基准值的企业户数占所有企业总户数的百分比</span>
-        </div>
-
-        <div class="text">
-          <p>复产率</p>
-          <span>所有企业当日合计电量占所有企业合计日均电量基准值的百分比</span>
-        </div>
-
-        <div class="text">
-          <p>已复工企业复产率</p>
-          <span>已复工企业当日合计电量占已复工企业合计日均电量基准值的百分比</span>
-        </div>
-
-        <div class="text">
-          <p>日均电量基准值</p>
-          <span>各企业2019年上半年平均日用电量</span>
-        </div>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -90,7 +51,14 @@
     name: "step",
     data() {
       return {
-        dialogVisible: false
+        ruleForm: {
+          region: ''
+        },
+        rules: {
+          region: [
+            { required: true, message: '请选择', trigger: 'change' }
+          ]
+        }
       }
     },
     created() {
@@ -100,8 +68,14 @@
 
     },
     methods: {
-      detai () {
-        this.dialogVisible = true
+      search () {
+        this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            this.$router.push({
+              path: '/mProduction/detail'
+            })
+          }
+        })
       }
     },
   }
@@ -109,17 +83,7 @@
 
 <style lang="scss" scoped>
 .step {
-  .blue {
-    color: #3267bb;
-  }
-
-  .red {
-    color: #bb5a32;
-  }
-
-  .green {
-    color: #2a7772;
-  }
+  margin-bottom: 10px;
 
   .box {
     overflow: hidden;
@@ -129,16 +93,17 @@
       position: relative;
       line-height: 40px;
       font-size: 16px;
-      background: #4f8985;
-      color: #fff;
-      padding-left: 10px;
+      background: #fff;
+      color: #3f6f6b;
+      padding-left: 20px;
 
       p {
-        cursor: pointer;
-        top: 0;
-        font-size: 12px;
         position: absolute;
-        right: 10px;
+        width: 3px;
+        height: 16px;
+        left: 12px;
+        top: 11px;
+        background: #3f6f6b;
       }
     }
 
@@ -147,80 +112,18 @@
       padding: 10px;
       box-sizing: border-box;
 
-      .flex {
-        display: flex;
-        height: 80px;
-        padding: 5px;
-        box-sizing: border-box;
-        border-bottom: 1px solid #e3e3e3;
-
-        .flex-column {
-          flex: 1;
-        }
-        .content {
-          border-left: 1px solid #e3e3e3; 
-          border-right: 1px solid #e3e3e3;
-          box-sizing: border-box;
-          width: 40%;
-        }
-
-        .text-head {
-          font-size: 12px;
-          color: #999;
-          text-align: center;
-        }
-
-        .text-content {
-          font-size: 16px;
-          line-height: 30px;
-          text-align: center;
-        }
-
-        .text-title {
-          text-align: center;
-        }
-      }
-
-      .data {
-        text-align: right;
-        color: #999;
+      .btn {
+        border-radius: 15px;
+        display: inline-block;
+        width: 80px;
+        background: #57a8a2;
+        height: 30px;
+        color: #fff;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
       }
     }
   }
-}
-</style>
-<style lang="scss">
-.step {
-  .el-dialog__header {
-    text-align: center;
-    background: #c1f8de;
-  }
-
-  .el-dialog__body {
-    padding: 10px;
-  }
-
-  .diaBox {
-    .text {
-      padding: 5px 0;
-
-      p {
-        position: relative;
-        padding-left: 20px;
-        line-height: 20px;
-      }
-      p:before {
-        position: absolute;
-        content: '';
-        width: 6px;
-        height: 6px;
-        top: 6px;
-        left: 7px;
-        background: #2fbb7a;
-        border-radius: 5px;
-      }
-    }
-  }
-  
 }
 </style>

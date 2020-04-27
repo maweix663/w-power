@@ -13,8 +13,12 @@
 
     <!--展示区-->
     <div class="main">
+      <!-- tab1 -->
       <div v-if="activeName == 'first'" class="stepOne">
         <indicators /> 
+        <search />
+
+        <div style="height: 100px;"></div>
       </div>
       <stepTwo v-if="activeName == 'second'" /> 
     </div>
@@ -28,14 +32,16 @@
 </template>
 
 <script>
+// tab1
 import indicators from './templates/indicators'
+import search from './templates/search'
 import stepTwo from './stepTwo'
 export default {
   name: "work",
   components: {
     indicators,
+    search,
     stepTwo
-
   },
   data() {
     return {
@@ -106,6 +112,7 @@ export default {
     .main {
       width: calc(100% - 40px);
       height: calc(100% - 223px);
+      overflow: auto;
       padding: 100px 20px 20px 20px;
       overflow-y: auto;
 
