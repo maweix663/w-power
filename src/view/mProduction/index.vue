@@ -3,9 +3,9 @@
     <div class="header">
       <h3 class="title">复工复产</h3>
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="用户管理" name="first"></el-tab-pane>
-        <el-tab-pane label="配置管理" name="two"></el-tab-pane>
-        <el-tab-pane label="角色管理" name="third"></el-tab-pane>
+        <el-tab-pane label="全市高压企业" name="first"></el-tab-pane>
+        <el-tab-pane label="规上工业企业" name="second"></el-tab-pane>
+        <el-tab-pane label="行业重点企业" name="third"></el-tab-pane>
         <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
       </el-tabs>
     </div>
@@ -13,8 +13,10 @@
 
     <!--展示区-->
     <div class="main">
-      <stepOne v-if="activeName == 'first'" />
-      <stepTwo v-if="activeName == 'two'" />
+      <div v-if="activeName == 'first'" class="stepOne">
+        <indicators /> 
+      </div>
+      <stepTwo v-if="activeName == 'second'" /> 
     </div>
 
     <!--返回武汉按钮-->
@@ -26,13 +28,14 @@
 </template>
 
 <script>
-import stepOne from './stepOne'
+import indicators from './templates/indicators'
 import stepTwo from './stepTwo'
 export default {
   name: "work",
   components: {
-    stepOne,
+    indicators,
     stepTwo
+
   },
   data() {
     return {
@@ -61,6 +64,7 @@ export default {
   },
 }
 </script>
+
 
 <style lang="scss" scoped>
   .mProduction {
@@ -153,6 +157,10 @@ export default {
 
   .el-tabs__nav-wrap::after {
     background-color: transparent;
+  }
+
+  .el-tabs__nav-next, .el-tabs__nav-prev{
+    color: #fff;
   }
 }
 </style>
