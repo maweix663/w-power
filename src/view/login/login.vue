@@ -97,7 +97,7 @@
         // })
 
         this.$router.push({
-          path: '/home'
+          path: '/mProduction'
         })
       },
       //设置cookie

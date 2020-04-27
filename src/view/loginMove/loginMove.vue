@@ -62,7 +62,7 @@
     },
     created() {
       // 判断账号类型
-      this.judgeAccount();
+      // this.judgeAccount();
     },
     mounted() {
       this.getCookie();
@@ -147,19 +147,21 @@
           username: this.account,
           password: Base64.encode(this.pwd)
         };
-        this.http.post('/login', params)
-          .then(res => {
-            localStorage.token = res.date.token;
-            this.clearCookie();
-            this.getDate();
-          })
-          .catch(err => {
-            localStorage.token = "";
-            this.$message.error({
-              message: err.msg,
-              center: true
-            });
-          })
+        // this.http.post('/login', params).then(res => {
+        //   localStorage.token = res.date.token;
+        //   this.clearCookie();
+        //   this.getDate();
+        // })
+        // .catch(err => {
+        //   localStorage.token = "";
+        //   this.$message.error({
+        //     message: err.msg,
+        //     center: true
+        //   });
+        // })
+        this.$router.push({
+          path: '/mProduction'
+        })
 
       },
       //设置cookie

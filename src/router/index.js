@@ -157,6 +157,14 @@ export default new Router({
       path: '/test',
       name: 'test',
       component: resolve => require(['@/view/test'], resolve)
-    }
+    },
+
+    // mawei
+    //复工复产
+    {
+      path: '/mProduction',
+      name: 'mProduction',
+      component: resolve => require(['@/view/mProduction/index'], resolve)
+    },
   ]
 })
