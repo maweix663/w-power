@@ -4,7 +4,7 @@
       <h3 class="title">复工复产</h3>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="用户管理" name="first"></el-tab-pane>
-        <el-tab-pane label="配置管理" name="second"></el-tab-pane>
+        <el-tab-pane label="配置管理" name="two"></el-tab-pane>
         <el-tab-pane label="角色管理" name="third"></el-tab-pane>
         <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
       </el-tabs>
@@ -13,7 +13,8 @@
 
     <!--展示区-->
     <div class="main">
-      <stepOne />
+      <stepOne v-if="activeName == 'first'" />
+      <stepTwo v-if="activeName == 'two'" />
     </div>
 
     <!--返回武汉按钮-->
@@ -26,10 +27,12 @@
 
 <script>
 import stepOne from './stepOne'
+import stepTwo from './stepTwo'
 export default {
   name: "work",
   components: {
-    stepOne
+    stepOne,
+    stepTwo
   },
   data() {
     return {
@@ -100,6 +103,22 @@ export default {
       width: calc(100% - 40px);
       height: calc(100% - 90px);
       padding: 100px 20px 20px 20px;
+
+      /deep/ .itemBox {
+        margin-top: 20px;
+        padding: 20px 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: relative;
+
+        .itemTitle {
+          color: #3f6f6b;
+          font-weight: bold;
+          font-size: 16px;
+          border-left: 4px solid #3f6f6b;
+          padding-left: 10px;
+        }
+      }
     }
 
     /*返回武汉按钮*/
