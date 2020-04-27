@@ -13,7 +13,7 @@
 
     <!--展示区-->
     <div class="main">
-      <div class="stepOne">
+      <div v-if="activeName == 'first'" class="stepOne">
         <indicators /> 
       </div>
     </div>
