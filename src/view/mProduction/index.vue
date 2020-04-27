@@ -21,6 +21,7 @@
 
         <div style="height: 100px;"></div>
       </div>
+      <stepTwo v-if="activeName == 'second'" /> 
     </div>
 
     <!--返回武汉按钮-->
@@ -35,11 +36,13 @@
 // tab1
 import indicators from './templates/indicators'
 import search from './templates/search'
+import stepTwo from './stepTwo'
 export default {
   name: "work",
   components: {
     indicators,
-    search
+    search,
+    stepTwo
   },
   data() {
     return {
@@ -68,6 +71,7 @@ export default {
   },
 }
 </script>
+
 
 <style lang="scss" scoped>
   .mProduction {
@@ -111,6 +115,22 @@ export default {
       height: calc(100% - 90px);
       overflow: auto;
       padding: 100px 20px 20px 20px;
+
+      /deep/ .itemBox {
+        margin-top: 20px;
+        padding: 20px 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: relative;
+
+        .itemTitle {
+          color: #3f6f6b;
+          font-weight: bold;
+          font-size: 16px;
+          border-left: 4px solid #3f6f6b;
+          padding-left: 10px;
+        }
+      }
     }
 
     /*返回武汉按钮*/
