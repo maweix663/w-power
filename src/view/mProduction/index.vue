@@ -3,9 +3,9 @@
     <div class="header">
       <h3 class="title">复工复产</h3>
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="用户管理" name="first"></el-tab-pane>
-        <el-tab-pane label="配置管理" name="second"></el-tab-pane>
-        <el-tab-pane label="角色管理" name="third"></el-tab-pane>
+        <el-tab-pane label="全市高压企业" name="first"></el-tab-pane>
+        <el-tab-pane label="规上工业企业" name="second"></el-tab-pane>
+        <el-tab-pane label="行业重点企业" name="third"></el-tab-pane>
         <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
       </el-tabs>
     </div>
@@ -136,6 +136,10 @@ export default {
 
   .el-tabs__nav-wrap::after {
     background-color: transparent;
+  }
+
+  .el-tabs__nav-next, .el-tabs__nav-prev{
+    color: #fff;
   }
 }
 </style>
