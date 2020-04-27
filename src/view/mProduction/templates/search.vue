@@ -9,41 +9,40 @@
       <div class="body">
         <div class="flex">
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colora">-135</span></p>
-            <p class="text-content colora">1217</p>
+            <p class="text-head">较上日<span class="blue">-135</span></p>
+            <p class="text-content blue">1217</p>
             <p class="text-title">监测总户数</p>
           </div>
 
           <div class="content">
-            <p class="text-head">较上日<span class="colorb">-135</span></p>
-            <p class="text-content colorb">1217</p>
+            <p class="text-head">较上日<span class="red">-135</span></p>
+            <p class="text-content red">1217</p>
             <p class="text-title">监测总户数</p>
           </div>
 
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colorc">-135</span></p>
-            <p class="text-content colorc">1217</p>
+            <p class="text-head">较上日<span class="green">-135</span></p>
+            <p class="text-content green">1217</p>
             <p class="text-title">监测总户数</p>
           </div>
         </div>
 
         <div class="flex" style="border-bottom: 0;">
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colord">-135</span></p>
-            <p class="text-content colord">1217</p>
-            <p class="text-title">当日用电量</p>
-            <p class="colord" style="text-align: center;">（万千瓦时）</p>
+            <p class="text-head">较上日<span class="blue">-135</span></p>
+            <p class="text-content blue">1217</p>
+            <p class="text-title">监测总户数</p>
           </div>
 
           <div class="content">
-            <p class="text-head">较上日<span class="colore">-135</span></p>
-            <p class="text-content colore">1217</p>
+            <p class="text-head">较上日<span class="red">-135</span></p>
+            <p class="text-content red">1217</p>
             <p class="text-title">监测总户数</p>
           </div>
 
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colorf">-135</span></p>
-            <p class="text-content colorf">1217</p>
+            <p class="text-head">较上日<span class="green">-135</span></p>
+            <p class="text-content green">1217</p>
             <p class="text-title">监测总户数</p>
           </div>
         </div>
@@ -110,29 +109,16 @@
 
 <style lang="scss" scoped>
 .step {
-  
-  .colora {
-    color: #3d67b7;
+  .blue {
+    color: #3267bb;
   }
 
-  .colorb {
-    color: #8b0d1a;
+  .red {
+    color: #bb5a32;
   }
 
-  .colorc {
-    color: #32635f;
-  }
-
-  .colord {
-    color: #6b9f7c;
-  }
-
-  .colore {
-    color: #c7344a;
-  }
-
-  .colorf {
-    color: #dea171;
+  .green {
+    color: #2a7772;
   }
 
   .box {
