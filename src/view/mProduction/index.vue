@@ -105,8 +105,9 @@ export default {
     /*展示区*/
     .main {
       width: calc(100% - 40px);
-      height: calc(100% - 90px);
+      height: calc(100% - 223px);
       padding: 100px 20px 20px 20px;
+      overflow-y: auto;
 
       /deep/ .itemBox {
         margin-top: 20px;

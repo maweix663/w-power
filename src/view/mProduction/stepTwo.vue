@@ -10,16 +10,19 @@
       <div class="body"></div>
     </div>
 
-    <recoveryCondition></recoveryCondition>
+    <gongdian></gongdian>
+    <industry></industry>
   </div>
 </template>
 
 <script>
-import recoveryCondition from './recoveryCondition.vue'
+import gongdian from './gongdian.vue'
+import industry from './industry.vue'
 export default {
   name: 'step',
   components: {
-    recoveryCondition
+    gongdian,
+    industry
   },
   data () {
     return {
