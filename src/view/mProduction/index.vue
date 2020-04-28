@@ -16,13 +16,15 @@
       <!-- tab1 -->
       <div v-if="activeName == 'first'" class="stepOne">
         <indicators /> 
+        <gongdian></gongdian>
+        <industry></industry>
+        <powerRanking></powerRanking>
         <cylinderx />
         <cylindery />
         <tables :objDetail="works" />
         <tables :objDetail="workPro" />
         <search />
       </div>
-      <stepTwo v-if="activeName == 'second'" /> 
     </div>
 
     <!--返回武汉按钮-->
@@ -36,20 +38,22 @@
 <script>
 // tab1
 import indicators from './templates/indicators'
+import gongdian from './templates/gongdian.vue'
+import industry from './templates/industry.vue'
 import cylinderx from './templates/cylinderx'
 import cylindery from './templates/cylindery'
 import tables from './templates/table'
 import search from './templates/search'
-import stepTwo from './stepTwo'
 export default {
   name: "work",
   components: {
     indicators,
+    gongdian,
+    industry,
     cylinderx,
     cylindery,
     search,
     tables,
-    stepTwo
   },
   data() {
     return {
