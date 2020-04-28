@@ -22,7 +22,7 @@
           :show-overflow-tooltip="!v.noTooltip"
           :sortable="v.sortable"
           width="180">
-          <template scope="scope">
+          <template slot-scope="scope">
             {{ scope.$index + 1 }}
           </template>
         </el-table-column>

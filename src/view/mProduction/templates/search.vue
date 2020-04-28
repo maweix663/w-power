@@ -91,18 +91,20 @@
 
     .head {
       position: relative;
-      line-height: 40px;
+      line-height: 23px;
       font-size: 16px;
       background: #fff;
       color: #3f6f6b;
-      padding-left: 20px;
+      font-weight: bold;
+      padding: 20px 0 0 30px;
+      font-weight: bold;
 
       p {
         position: absolute;
-        width: 3px;
-        height: 16px;
+        width: 4px;
+        height: 23px;
         left: 12px;
-        top: 11px;
+        top: 20px;
         background: #3f6f6b;
       }
     }
