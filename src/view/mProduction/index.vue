@@ -16,6 +16,8 @@
       <!-- tab1 -->
       <div v-if="activeName == 'first'" class="stepOne">
         <indicators /> 
+        <cylinderx />
+        <cylindery />
         <tables :objDetail="works" />
         <tables :objDetail="workPro" />
         <search />
@@ -34,6 +36,8 @@
 <script>
 // tab1
 import indicators from './templates/indicators'
+import cylinderx from './templates/cylinderx'
+import cylindery from './templates/cylindery'
 import tables from './templates/table'
 import search from './templates/search'
 import stepTwo from './stepTwo'
@@ -41,6 +45,8 @@ export default {
   name: "work",
   components: {
     indicators,
+    cylinderx,
+    cylindery,
     search,
     tables,
     stepTwo
@@ -186,7 +192,7 @@ export default {
       overflow-y: auto;
 
       /deep/ .itemBox {
-        margin-top: 20px;
+        margin-top: 10px;
         padding: 20px 10px;
         background-color: #fff;
         border-radius: 5px;
