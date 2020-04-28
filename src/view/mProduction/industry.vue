@@ -2,6 +2,14 @@
   <div class="industry itemBox">
 		<div class="itemTitle">
 			各行业类别复工复产情况
+      <el-select v-model="value" placeholder="请选择" class="top-select">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
 		</div>
 
 		<div id="industry" style="width: 100%; height:250px; margin-top: 10px"></div>
@@ -22,6 +30,24 @@ export default {
     	mychart: '',
     	color: ['#000','#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
     	btnNum: 1,
+
+      options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value: ''
 
     }
   },
@@ -170,6 +196,19 @@ export default {
 
 <style lang="scss" scoped>
 .industry {
+  .top-select {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+
+    /deep/ .el-input__inner {
+      text-align: right;
+      padding-left: 0;
+      border: none;
+      outline: none;
+      width: 100px;
+    }
+  }
 
 
 	.btn-bottom {

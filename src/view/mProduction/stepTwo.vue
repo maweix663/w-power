@@ -12,17 +12,20 @@
 
     <gongdian></gongdian>
     <industry></industry>
+    <powerRanking></powerRanking>
   </div>
 </template>
 
 <script>
 import gongdian from './gongdian.vue'
 import industry from './industry.vue'
+import powerRanking from './powerRanking.vue'
 export default {
   name: 'step',
   components: {
     gongdian,
-    industry
+    industry,
+    powerRanking,
   },
   data () {
     return {
