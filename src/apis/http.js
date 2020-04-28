@@ -118,7 +118,7 @@ const get = function get(url, params = {}) {
     params.showLoading && showFullScreenLoading() //显示等待框
     let paramsData = params;
     delete(paramsData['showLoading']);
-    Axios.get('/api' + url, {
+    Axios.get(url, {
       params: paramsData
     })
       .then(response => {
@@ -143,7 +143,7 @@ const post = function post(url, params = {}) {
     params.showLoading && showFullScreenLoading() //显示等待框
     let paramsData = params;
     delete(paramsData['showLoading']);
-    Axios.post('/api' + url, paramsData)
+    Axios.post(url, paramsData)
       .then(response => {
         params.showLoading && tryHideFullScreenLoading() //隐藏等待框
         resolve(response);

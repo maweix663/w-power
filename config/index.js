@@ -6,19 +6,19 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
+    
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://192.168.66.201:18080', //开发的
+      '/app': {
+        target: 'http://111.47.230.168:18082', //开发的
         // target: 'http://192.168.66.150:18080', //上线的
         changeOrigin: true,
         secure: true, // 允许https请求
-        pathRewrite: {
-          '^/api': ''
-        },
+        // pathRewrite: {
+        //   '^/api': ''
+        // },
       }
     },
 

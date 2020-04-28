@@ -141,27 +141,26 @@
           });
           return;
         }
-        localStorage.token = "";
+        
         let params = {
-          showLoading: true,
           username: this.account,
-          password: Base64.encode(this.pwd)
+          password: this.pwd
         };
-        // this.http.post('/login', params).then(res => {
-        //   localStorage.token = res.date.token;
-        //   this.clearCookie();
-        //   this.getDate();
-        // })
-        // .catch(err => {
-        //   localStorage.token = "";
-        //   this.$message.error({
-        //     message: err.msg,
-        //     center: true
-        //   });
-        // })
-        this.$router.push({
-          path: '/mProduction'
+        this.http.post('/app/appLogin', params).then(res => {
+          // sessionStorage.setItem('token', res.date.token)
+          this.clearCookie();
+          this.$router.push({
+            path: '/mProduction'
+          })
         })
+        .catch(err => {
+          sessionStorage.setItem('token', '')
+          this.$message.error({
+            message: err.msg,
+            center: true
+          });
+        })
+        
 
       },
       //设置cookie
@@ -193,7 +192,7 @@
       },
 
       //清除cookie
-      clearCookie: function () {
+      clearCookie () {
         this.setCookie("", "", -1); //修改2值都为空，天数为负1天就好了
       },
 
