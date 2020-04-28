@@ -19,7 +19,12 @@ module.exports = {
         // pathRewrite: {
         //   '^/api': ''
         // },
-      }
+      },
+      '/resumeWork': {
+        target: 'http://111.47.230.168:18082', //开发的
+        changeOrigin: true,
+        secure: true, // 允许https请求
+      },
     },
 
     // Various Dev Server settings

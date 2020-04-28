@@ -1,29 +1,19 @@
 <template>
   <div class="recoveryCondition itemBox">
-		<div class="itemTitle">
-			各供电区域复工复产情况
-			<el-button round size="mini" class="titleBtn">&nbsp;重置&nbsp;</el-button>
-		</div>
-		<div class="recoveryCondition-area">
-			<div class="btn-top" :class="{active: isActive(0)}" @click="toggleShow(0)" style="font-weight:bold;">全市></div>
-			<div class="btn-top" :class="{active: isActive(1)}" @click="toggleShow(1)"><span style="background-color: #ffff00;"></span>蔡甸</div>
-			<div class="btn-top" :class="{active: isActive(2)}" @click="toggleShow(2)"><span style="background-color: #f39800;"></span>东西湖</div>
-			<div class="btn-top" :class="{active: isActive(3)}" @click="toggleShow(3)"><span style="background-color: #eb6100;"></span>东新</div>
-			<div class="btn-top" :class="{active: isActive(4)}" @click="toggleShow(4)"><span style="background-color: #ff0014;"></span>汉口</div>
-			<div class="btn-top" :class="{active: isActive(5)}" @click="toggleShow(5)"><span style="background-color: #e40071;"></span>汉南</div>
-			<div class="btn-top" :class="{active: isActive(6)}" @click="toggleShow(6)"><span style="background-color: #601986;"></span>汉阳</div>
-			<div class="btn-top" :class="{active: isActive(7)}" @click="toggleShow(7)"><span style="background-color: #1d2088;"></span>黄陂</div>
-			<div class="btn-top" :class="{active: isActive(8)}" @click="toggleShow(8)"><span style="background-color: #00479d;"></span>江夏</div>
-			<div class="btn-top" :class="{active: isActive(9)}" @click="toggleShow(9)"><span style="background-color: #00a0e9;"></span>开发区</div>
-			<div class="btn-top" :class="{active: isActive(10)}" @click="toggleShow(10)"><span style="background-color: #71ff45;"></span>武昌</div>
-			<div class="btn-top" :class="{active: isActive(11)}" @click="toggleShow(11)"><span style="background-color: #8fc31f;"></span>新洲</div>
-		</div>
-		<div id="recoveryCondition" style="width: 100%; height:200px;"></div>
-		<div class="btn-bottom">
-			<el-button round size="mini" @click="btnNum = 1" :class="{active: btnNum == 1}">&nbsp;复工电力指数&nbsp;</el-button>
-			<el-button round size="mini" @click="btnNum = 2" :class="{active: btnNum == 2}">&nbsp;复工率&nbsp;</el-button>
-			<el-button round size="mini" @click="btnNum = 3" :class="{active: btnNum == 3}">&nbsp;重置&nbsp;</el-button>
-		</div>
+    <div class="itemTitle">
+      各供电区域复工复产情况
+      <el-button round size="mini" class="titleBtn" @click="reset">&nbsp;重置&nbsp;</el-button>
+    </div>
+    <div class="recoveryCondition-area">
+      <div class="btn-top" :class="{active: isActive('全市')}" @click="toggleShow('全市')" style="font-weight:bold;">全市></div>
+      <div class="btn-top" v-for="(item,i) in areaList" :class="{active: isActive(item)}" @click="toggleShow(item)"><span :style="{backgroundColor: colorList[i]}"></span>{{ item }}</div>
+    </div>
+    <div id="recoveryCondition" style="width: 100%; height:200px;" v-loading="loading"></div>
+    <div class="btn-bottom">
+      <el-button round size="mini" @click="changeBtnNum(2)" :class="{active: btnNum == 2}">&nbsp;复工电力指数&nbsp;</el-button>
+      <el-button round size="mini" @click="changeBtnNum(0)" :class="{active: btnNum == 0}">&nbsp;复工率&nbsp;</el-button>
+      <el-button round size="mini" @click="changeBtnNum(1)" :class="{active: btnNum == 1}">&nbsp;复产率&nbsp;</el-button>
+    </div>
 
   </div>
 </template>
@@ -33,51 +23,185 @@ export default {
   name: 'recoveryCondition',
   data () {
     return {
-    	mychart: '',
-    	showArr: [0,1,2,3,4,5,6,7,8,9,10,11],
-    	color: ['#000','#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
-    	btnNum: 1,
+      loading: false,
+      areaList: [],
+
+
+      mychart: '',
+      showArr: ['全市'],
+      allData: [], //所有处理好的数据
+      colorList: ['#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+      btnNum: 0,  //复工类型 默认0(0=复工率，1=复产率，2=复工电力指数)
 
     }
   },
   created () {
-
+    this.getAreaList();  //获取区域列表（复工复产情况区域参数）
+    this.getReWorkCaseData();  //复工复产情况
   },
   mounted () {
-    	this.init()
+    //this.init()
   },
   methods: {
-  	toggleShow(n) {
-  		let num = this.showArr.indexOf(n);
+    //获取区域列表
+    getAreaList() {
+      let params = {
+        enterpriseId:'c725531a124043bc8127818a8f56d9e7'
+      };
+      this.http.post('/resumeWork/listDivision', params)
+        .then(res => {
+          this.areaList = res.data || [];
+          this.areaList.forEach((item,i)=>{
+            this.showArr.push(item);
+          })
 
-  		if (num == -1) {
-  			this.showArr.push(n);
-  		}else{
-  			this.showArr.splice(num,1);
-  		}
-  	},
-  	isActive(n){
-  		let num = this.showArr.indexOf(n);
+          this.getEchartData()
+        })
+        .catch(err => {})
+    },
+    reset(){
+      this.btnNum = 0;
+      this.showArr = ['全市']
+      this.areaList.forEach((item,i)=>{
+        this.showArr.push(item);
+      })
 
-  		if (num == -1) {
-				return false
-	  	}else{
-	  		return true
-  		}
-  	},
+      this.getEchartData()
+    },
+    
+    toggleShow(str) {
+      let num = this.showArr.indexOf(str);
 
-  	init () {
-  		this.mychart = this.$echarts.init(document.getElementById('recoveryCondition'))
-  		
-  		let option = {
-  			color: this.color,
+      if (num == -1) {
+        this.showArr.push(str);
+      }else{
+        this.showArr.splice(num,1);
+      }
+
+      this.getEchartData1();
+    },
+    isActive(str){
+      let num = this.showArr.indexOf(str);
+
+      if (num == -1) {
+        return false
+      }else{
+        return true
+      }
+    },
+    changeBtnNum(n){
+      this.btnNum = n;
+      this.showArr = ['全市']
+      this.areaList.forEach((item,i)=>{
+        this.showArr.push(item);
+      })
+      this.getEchartData();
+    },
+
+    getEchartData() {
+      if (this.showArr.length == 0) {
+        this.init([], []);
+        return false
+      }
+
+      this.loading = true;
+
+      let list = [];
+      this.showArr.forEach(item => {
+        list.push(this.getReWorkCaseData(item));
+      })  
+
+      Promise.all(list).then(arr => {
+        this.allData = arr
+        this.handleData(arr)
+      })
+    },
+
+    getEchartData1(){
+      if (this.showArr.length == 0) {
+        this.init([], []);
+        return false
+      }
+
+      this.loading = true;
+
+      let areaList = ['全市'].concat(this.areaList);
+
+      let arr = [];
+      this.showArr.forEach(item=>{
+        let n = areaList.indexOf(item);
+
+        arr.push(this.allData[n])
+      })
+
+      this.handleData(arr)
+    },
+
+    //复工复产情况
+    getReWorkCaseData(str) {
+      return new Promise(resolve => {
+        let params = {
+          division: str,
+          enterpriseId: 'c725531a124043bc8127818a8f56d9e7',
+          reWorkType: this.btnNum
+        };
+        this.http.post('/resumeWork/getReWorkCase', params)
+          .then(res => {
+            resolve(res.data)
+          })
+          .catch(err => {})
+      })  
+    },
+
+    handleData(arr){
+      console.log(1111,arr)
+      let x = [];
+      arr[0].forEach(item=>{
+        x.push(item.date);
+      })
+
+      console.log(2222,x)
+
+      let data = [];
+      this.showArr.forEach((item,i)=>{
+        let y = [];
+        arr[i].map(item1=>{
+          y.push(Number(item1.value));
+        })
+
+        if(item == '全市'){
+          data.push({
+            name: '全市',
+            symbol: 'none',
+            type: 'line',
+            lineStyle: {
+              width: 4,
+            },
+            z: 3,
+            data: y
+          })
+        }else{
+          data.push({
+            name: item,
+            symbol: 'none',
+            type: 'line',
+            data: y
+          },)
+        }
+      })
+
+      console.log(3333, data)
+      this.init(x, data);
+    },
+
+    init(x, data) {
+      this.mychart = this.$echarts.init(document.getElementById('recoveryCondition'))
+      
+      let option = {
+        color: ['#000'].concat(this.colorList),
         tooltip: {
           trigger: 'axis'
         },
-        // legend: {
-        // 	show: false,
-        //   data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-        // },
         grid: {
           left: '3%',
           right: '4%',
@@ -88,107 +212,31 @@ export default {
         xAxis: {
           type: 'category',
           axisTick: {
-        		show: false
-        	},
+            show: false
+          },
           boundaryGap: false,
-          data: ['3.1', '3.2', '3.3', '3.4', '3.5', '3.6', '3.7']
+          data: x
         },
         yAxis: {
-        	axisLine: {
-        		show: false
-        	},
-        	axisTick: {
-        		show: false
-        	},
-        	axisLabel:{
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel:{
             formatter(val){
                return val+'%'
             }
-        	},
+          },
           type: 'value'
         },
-        series: [
-          {
-            name: '全市',
-            symbol: 'none',
-            type: 'line',
-            lineStyle: {
-            	width: 4,
-            },
-            z: 3,
-            data: [20, 32, 10, 14, 90, 23, 20]
-          },
-          {
-            name: '蔡甸',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-         	{
-            name: '东西湖',
-            symbol: 'none',
-            type: 'line',
-            data: [12, 42, 17, 44, 9, 63, 10]
-          },
-          {
-            name: '东新',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 32, 18, 24, 40, 33, 10]
-          },
-          {
-            name: '汉口',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-          {
-            name: '汉南',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-          {
-            name: '汉阳',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-          {
-            name: '黄陂',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-          {
-            name: '江夏',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-          {
-            name: '开发区',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-          {
-            name: '武昌',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          },
-          {
-            name: '新洲',
-            symbol: 'none',
-            type: 'line',
-            data: [22, 82, 11, 24, 90, 33, 10]
-          }
-        ]
+        series: data
       }
 
-      this.mychart.setOption(option)
-  	}
+      this.mychart.setOption(option, true);
+      this.loading = false;
+    }
 
   }
 }
@@ -196,50 +244,50 @@ export default {
 
 <style lang="scss" scoped>
 .recoveryCondition {
-	.titleBtn {
-		float: right;
-		margin-right: 10px;
-		position: relative;
-		top: -2px;
-	}
+  .titleBtn {
+    float: right;
+    margin-right: 10px;
+    position: relative;
+    top: -2px;
+  }
 
-	.recoveryCondition-area {
-		margin-top: 10px;
-		overflow: hidden;
+  .recoveryCondition-area {
+    margin-top: 10px;
+    overflow: hidden;
 
-		.btn-top {
-			padding: 7px 13px;
-			display: inline-block;
-			background: #FAFAFA;
-			margin-bottom: 2px;
-			border-radius: 5px;
-			width: calc(25% - 5px);
-			text-align: center;
-			box-sizing: border-box;
+    .btn-top {
+      padding: 7px 13px;
+      display: inline-block;
+      background: #FAFAFA;
+      margin-bottom: 2px;
+      border-radius: 5px;
+      width: calc(25% - 5px);
+      text-align: center;
+      box-sizing: border-box;
 
-			&.active {
-				background-color:#F4F9F8;
-			}
+      &.active {
+        background-color:#F4F9F8;
+      }
 
-			span {
-				display: inline-block;
-				width: 6px;
-				height: 6px;
-				margin-right: 3px;
-			}
+      span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin-right: 3px;
+      }
 
-		}
-	}
+    }
+  }
 
-	.btn-bottom {
-		display: flex; 
-		justify-content: space-around; 
-		padding: 0 20px;
+  .btn-bottom {
+    display: flex; 
+    justify-content: space-around; 
+    padding: 0 20px;
 
-		.active {
-			color: #fff;
-			background: #3f6f6b;
-		}
-	}
+    .active {
+      color: #fff;
+      background: #3f6f6b;
+    }
+  }
 }
 </style>

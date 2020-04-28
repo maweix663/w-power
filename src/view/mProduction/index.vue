@@ -14,11 +14,10 @@
     <!--展示区-->
     <div class="main">
       <!-- tab1 -->
-      <div v-if="activeName == 'first'" class="stepOne">
+      <div class="stepOne">
         <indicators /> 
         <gongdian></gongdian>
         <industry></industry>
-        <powerRanking></powerRanking>
         <cylinderx />
         <cylindery />
         <tables :objDetail="works" />
