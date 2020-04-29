@@ -17,8 +17,8 @@
         <industry></industry>
         <cylinderx />
         <cylindery />
-        <tables :objDetail="works" />
-        <tables :objDetail="workPro" />
+        <tables :objDetail="works" :typeId="typeId" />
+        <tables :objDetail="workPro" :typeId="typeId" />
         <search :typeId="typeId" />
       </div>
     </div>

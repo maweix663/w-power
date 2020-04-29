@@ -40,43 +40,62 @@
 </template>
 
 <script>
-  export default {
-    name: "step",
-    props: {
-      objDetail: {
-        type: Object
-      }
+export default {
+  name: "step",
+  props: {
+    objDetail: {
+      type: Object
     },
-    data() {
-      return {
-        tableData: [
-          {
-            data: '111'
-          },
-          {
-            data: '222'
-          }
-        ],
-        isActive: 1
-      }
-    },
-    created() {
-
-    },
-    mounted: function () {
-
-    },
-    methods: {
-      // 切换查询条件
-      changeActive (active) {
-        if (active == 1) {
-          this.isActive = 2
-        } else {
-          this.isActive = 1
+    typeId: {
+      type: String
+    }
+  },
+  data() {
+    return {
+      tableData: [
+        {
+          data: '111'
+        },
+        {
+          data: '222'
         }
-      } 
+      ],
+      isActive: 1
+    }
+  },
+  watch: {
+    typeId (val) {
+      this.getTabsData({
+        enterpriseId: val
+      })
+    }
+  },
+  created() {
+
+  },
+  mounted: function () {
+
+  },
+  methods: {
+    // 切换查询条件
+    changeActive (active) {
+      if (active == 1) {
+        this.isActive = 2
+      } else {
+        this.isActive = 1
+      }
     },
-  }
+
+    // 获取 区域
+    getTabsData (params) {
+      this.http.post('/resumeWork/listDivision', params)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {})
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
