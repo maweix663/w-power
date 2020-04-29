@@ -15,7 +15,7 @@
     <div class="main">
       <!-- tab1 -->
       <div class="stepOne">
-        <indicators /> 
+        <indicators :indicatorsObj="indicatorsObj" /> 
         <gongdian></gongdian>
         <industry></industry>
         <cylinderx />
@@ -59,6 +59,10 @@ export default {
       // 标题
       activeName: 'first',
 
+      // 关键指标
+      indicatorsObj: {
+
+      },
       works: {
         name: '复工电力指数周增幅',
         columns: [
@@ -128,7 +132,7 @@ export default {
     }
   },
   created() {
-
+    this.getTabsData()
   },
   mounted: function () {
 
@@ -144,7 +148,17 @@ export default {
     // tabs 切换
     handleClick (tab, event) {
 
-    }
+    },
+
+    // 获取企业tabs
+    getTabsData () {
+      let params = {}
+      this.http.post('/resumeWork/listEnterpris')
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {})
+    },
   },
 }
 </script>
