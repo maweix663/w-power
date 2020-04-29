@@ -8,31 +8,47 @@
 
       <div class="body">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-          <el-form-item style="margin-bottom: 20px;" label="供电单位" prop="region">
-            <el-select size="small" v-model="ruleForm.region" placeholder="请选择">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+          <el-form-item style="margin-bottom: 20px;" label="供电单位" prop="county">
+            <el-select size="small" v-model="ruleForm.county" @change="getPowerStations" placeholder="请选择">
+              <el-option
+                v-for="item in lists.countys"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单位" prop="region">
-            <el-select v-model="ruleForm.region" placeholder="请选择">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单所" prop="powerStation">
+            <el-select v-model="ruleForm.powerStation" placeholder="请选择">
+              <el-option
+                v-for="item in lists.powerStations"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单位" prop="region">
-            <el-select v-model="ruleForm.region" placeholder="请选择">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+          <el-form-item size="small" style="margin-bottom: 20px;" label="时间" prop="time">
+            <el-select v-model="ruleForm.time" placeholder="请选择">
+              <el-option
+                v-for="item in lists.times"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单位" prop="region">
-            <el-select v-model="ruleForm.region" placeholder="请选择">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+          <el-form-item size="small" style="margin-bottom: 20px;" label="行业类别" prop="industry">
+            <el-select v-model="ruleForm.industry" placeholder="请选择">
+              <el-option
+                v-for="item in lists.industrys"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -49,13 +65,36 @@
 <script>
   export default {
     name: "step",
+    props: {
+      typeId: {
+        type: String
+      }
+    },
     data() {
       return {
+        lists: {
+          countys: [],
+          powerStations: [],
+          times: [],
+          industrys: []
+        },
         ruleForm: {
-          region: ''
+          county: '',
+          powerStation: '',
+          time: '',
+          industry: ''
         },
         rules: {
-          region: [
+          county: [
+            { required: true, message: '请选择', trigger: 'change' }
+          ],
+          powerStation: [
+            { required: true, message: '请选择', trigger: 'change' }
+          ],
+          time: [
+            { required: true, message: '请选择', trigger: 'change' }
+          ],
+          industry: [
             { required: true, message: '请选择', trigger: 'change' }
           ]
         }
@@ -64,15 +103,50 @@
     created() {
 
     },
+    watch: {
+      typeId (val) {
+        this.getTabsData({
+          enterpriseId: val
+        })
+      }
+    },
     mounted: function () {
 
     },
     methods: {
+      // 获取明细参数
+      getTabsData (params) {
+        this.http.post('/resumeWork/detailsParame', params)
+          .then(res => {
+            this.lists.countys = res.data.countys
+            this.lists.times = res.data.times
+            this.lists.industrys = res.data.industrys
+          })
+          .catch(err => {})
+      },
+
+      // 供电公司选择
+      getPowerStations (val) {
+        this.http.post('/resumeWork/listPowerStation', {
+          county: val,
+          enterpriseId: this.typeId
+        })
+          .then(res => {
+            this.lists.powerStations = res.data
+          })
+          .catch(err => {})
+      },
+
+      // 搜索
       search () {
         this.$refs['ruleForm'].validate((valid) => {
           if (valid) {
             this.$router.push({
-              path: '/mProduction/detail'
+              path: '/mProduction/detail',
+              query: {
+                ...this.ruleForm,
+                enterpriseId: this.typeId
+              }
             })
           }
         })

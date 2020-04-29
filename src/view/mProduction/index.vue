@@ -19,7 +19,7 @@
         <cylindery />
         <tables :objDetail="works" />
         <tables :objDetail="workPro" />
-        <search />
+        <search :typeId="typeId" />
       </div>
     </div>
 
