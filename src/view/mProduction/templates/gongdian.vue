@@ -31,7 +31,7 @@ export default {
       allData: [], //所有处理好的数据
       colorList: ['#000000','#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
       showColor: [],
-      btnNum: 0,  //复工类型 默认0(0=复工率，1=复产率，2=复工电力指数)
+      btnNum: 2,  //复工类型 默认0(0=复工率，1=复产率，2=复工电力指数)
 
     }
   },
@@ -60,7 +60,7 @@ export default {
         .catch(err => {})
     },
     reset(){
-      this.btnNum = 0;
+      this.btnNum = 2;
       this.showArea = []
       this.areaList.forEach((item,i)=>{
         this.showArea.push(item);
@@ -284,7 +284,7 @@ export default {
   .btn-bottom {
     display: flex; 
     justify-content: space-around; 
-    padding: 0 20px;
+    padding: 10px 20px 0;
 
     .active {
       color: #fff;
