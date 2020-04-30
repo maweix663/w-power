@@ -202,11 +202,11 @@ export default {
         }
       })
 
-      console.log(3333, data)
       this.init(x, data);
     },
 
     init(x, data) {
+      let _this = this;
       this.mychart = this.$echarts.init(document.getElementById('recoveryCondition'))
       
       let option = {
@@ -238,7 +238,11 @@ export default {
           },
           axisLabel:{
             formatter(val){
+              if (_this.btnNum == 2) {
+                return val
+              }else {
                return val+'%'
+              }
             }
           },
           type: 'value'
