@@ -65,6 +65,8 @@ export default {
       this.http.post('/resumeWork/listDivision', params)
       .then(res => {
         let data = res.data || [];
+        this.areaList = ['全市'];
+
         data.forEach((item,i)=>{
           this.areaList.push(item);
         })
