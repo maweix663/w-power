@@ -4,8 +4,8 @@
 			各行业类别复工复产情况
       <el-select v-model="selectValue" placeholder="请选择" class="top-select" @change="getIndustryPowerCase(selectValue)">
         <el-option
-          v-for="item in areaList"
-          :key="item"
+          v-for="(item, index) in areaList"
+          :key="index"
           :label="item"
           :value="item">
         </el-option>

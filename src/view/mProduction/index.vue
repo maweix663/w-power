@@ -17,8 +17,8 @@
         <industry :typeId="typeId" style="margin-bottom:10px;"></industry>
         <cylinderx :typeId="typeId"/>
         <cylindery :typeId="typeId" />
-        <!-- <tables :objDetail="works" :tableData="tableWorksData" /> -->
-        <tables :objDetail="works" :typeId="typeId" />
+        <tables :objDetail="works" :tableData="tableWorksData" />
+        <!-- <tables :objDetail="works" :typeId="typeId" /> -->
         <tables :objDetail="workPro" :typeId="typeId" />
         <search :typeId="typeId" />
       </div>
