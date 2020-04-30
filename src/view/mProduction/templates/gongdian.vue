@@ -5,8 +5,7 @@
       <el-button round size="mini" class="titleBtn" @click="reset">&nbsp;重置&nbsp;</el-button>
     </div>
     <div class="recoveryCondition-area">
-      <div class="btn-top" :class="{active: isActive('全市')}" @click="toggleShow('全市')" style="font-weight:bold;">全市></div>
-      <div class="btn-top" v-for="(item,i) in areaList" v-if="i!=0" :class="{active: isActive(item)}" @click="toggleShow(item)"><span :style="{backgroundColor: colorList[i], fontWeight: (item=='全市'?'bold':'normal')}"></span>{{ item }}</div>
+      <div class="btn-top" :class="{active: isActive('全市')}" @click="toggleShow('全市')" style="font-weight:bold;">全市></div><div class="btn-top" v-for="(item,i) in areaList" v-if="i!=0" :class="{active: isActive(item)}" @click="toggleShow(item)"><span :style="{backgroundColor: colorList[i], fontWeight: (item=='全市'?'bold':'normal')}"></span>{{ item }}</div>
     </div>
     <div id="recoveryCondition" style="width: 100%; height:200px;" v-loading="loading"></div>
     <div class="btn-bottom">
@@ -203,11 +202,11 @@ export default {
         }
       })
 
-      console.log(3333, data)
       this.init(x, data);
     },
 
     init(x, data) {
+      let _this = this;
       this.mychart = this.$echarts.init(document.getElementById('recoveryCondition'))
       
       let option = {
@@ -239,7 +238,11 @@ export default {
           },
           axisLabel:{
             formatter(val){
+              if (_this.btnNum == 2) {
+                return val
+              }else {
                return val+'%'
+              }
             }
           },
           type: 'value'
@@ -274,7 +277,7 @@ export default {
       background: #FAFAFA;
       margin-bottom: 2px;
       border-radius: 5px;
-      width: calc(25% - 5px);
+      width: calc(25% - 2px);
       text-align: center;
       box-sizing: border-box;
 
