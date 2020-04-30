@@ -7,9 +7,9 @@
       </el-tabs>
     </div>
 
-
     <!--展示区-->
     <div class="main">
+      <img class="banner" src="/static/img/work/headBg.png">
       <!-- tab1 -->
       <div class="stepOne">
         <indicators :indicatorsArr="indicatorsArr" /> 
@@ -206,6 +206,9 @@ export default {
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
+    
+
+    
 
     /*标题区*/
     .header {
@@ -238,11 +241,20 @@ export default {
 
     /*展示区*/
     .main {
+      z-index: 10;
       width: calc(100% - 40px);
-      height: calc(100% - 223px);
+      height: calc(100% - 273px);
       overflow: auto;
-      padding: 100px 20px 20px 20px;
+      padding: 150px 20px 20px 20px;
       overflow-y: auto;
+      position: relative;
+
+      .banner {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
 
       /deep/ .itemBox {
         margin-top: 10px;

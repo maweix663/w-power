@@ -202,6 +202,7 @@
       background: #fff;
       padding: 10px;
       box-sizing: border-box;
+      position: relative;
 
       .flex {
         display: flex;
