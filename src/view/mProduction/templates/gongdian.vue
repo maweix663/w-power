@@ -62,6 +62,7 @@ export default {
       this.http.post('/resumeWork/listDivision', params)
         .then(res => {
           this.activeArea = [];
+          this.allArea = [];
           this.showArea = [];
 
           let arr = ['全市'].concat(res.data || []);
