@@ -12,7 +12,7 @@
     </div>
 
     <div class="text">
-      <span v-for="item in industryOneArr" @click="changeNum(item)" :key="item">{{ item }}</span>
+      <span v-for="(item, index) in industryOneArr" @click="changeNum(item, index)" :key="item"><i :style="`background: ${color[index]};`"></i>{{ item }}</span>
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
       mychart: '',
       status: 0,
 
-      color: ['#00a0e9', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#ffff00', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+      color: ['#4e79a7', '#a0cbe8', '#f28e2b', '#ffbe7d', '#59a14f', '#8cd17d', '#b6992d', '#f1ce63', '#499894', '#86bcb6', '#e15759'],
       industryOneArr: [],
       industryOne: ''
     }
@@ -42,7 +42,7 @@ export default {
         enterpriseId: val,
         industryOne: '',
         status: 0
-      })
+      }, this.color)
     }
   },
   created () {
@@ -53,10 +53,10 @@ export default {
       enterpriseId: this.typeId,
       industryOne: this.industryOne,
       status: this.status
-    })
+    }, this.color)
   },
   methods: {
-    init (xData, yData) {
+    init (xData, yData, color) {
       this.mychart = this.$echarts.init(document.getElementById('ytindustry'))
       
       let option = {
@@ -74,7 +74,7 @@ export default {
               itemStyle: {  
                 normal: {  
                   color: (params) => {
-                      var colorList = this.color
+                      var colorList = color
                       return colorList[params.dataIndex];
                   }
                 }
@@ -99,13 +99,13 @@ export default {
     },
 
     // 获取行业类型
-    changeNum (str) {
+    changeNum (str, index) {
       this.industryOne = str
       this.getEchartsData({
         enterpriseId: this.typeId,
         industryOne: this.industryOne,
         status: this.status
-      })
+      }, [this.color[index]])
     },
 
     // 搜索
@@ -115,11 +115,11 @@ export default {
         enterpriseId: this.typeId,
         industryOne: this.industryOne,
         status: this.status
-      })
+      }, this.color)
     },
 
     // 获取企业级别
-    getEchartsData (params) {
+    getEchartsData (params, color) {
       this.http.post('/resumeWork/industryRanking', params)
         .then(res => {
           let data = res.data
@@ -129,8 +129,8 @@ export default {
             x.push(item.industryOne)
             y.push(item.value)
           })
-          
-          this.init(x, y)
+          console.log(color)
+          this.init(x, y, color)
         })
         .catch(err => {
           this.init([], [])
@@ -173,14 +173,12 @@ export default {
       cursor: pointer;
     }
 
-    span:before {
+    i {
       position: absolute;
-      content: '';
       width: 4px;
       height: 4px;
       top: 13px;
       left: 0;
-      background: #e3e3e3;
     }
   }
 }
