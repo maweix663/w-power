@@ -273,7 +273,7 @@ export default {
       background: #FAFAFA;
       margin-bottom: 2px;
       border-radius: 5px;
-      width: calc(25% - 5px);
+      width: calc(25% - 2px);
       text-align: center;
       box-sizing: border-box;
 
