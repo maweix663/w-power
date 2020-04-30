@@ -25,9 +25,15 @@
 <script>
 export default {
   name: 'industry',
+  props: {     
+    typeId: {
+      type: String
+    }
+  },
   data () {
     return {
       loading: false,
+      enterpriseId: '',
 
     	mychart: '',
       areaList: ['全市'],
@@ -37,18 +43,24 @@ export default {
     	btnNum: 0,
     }
   },
+  watch: {
+    typeId (val) {
+      this.enterpriseId = val;
+      this.getAreaList();  //获取区域列表（复工复产情况区域参数）
+      this.getIndustryPowerCase('全市');  //获取行业分类    
+    }
+  },
   created () {
 
   },
   mounted () {
-    this.getAreaList();  //获取区域列表（复工复产情况区域参数）
-    this.getIndustryPowerCase('全市');  //获取行业分类
+
   },
   methods: {
     //获取区域列表
     getAreaList() {
       let params = {
-        enterpriseId:'c725531a124043bc8127818a8f56d9e7'
+        enterpriseId: this.enterpriseId
       };
       this.http.post('/resumeWork/listDivision', params)
       .then(res => {
@@ -72,7 +84,7 @@ export default {
 
       let params = {
         division: str == '全市' ? '' : str,
-        enterpriseId:'c725531a124043bc8127818a8f56d9e7',
+        enterpriseId: this.enterpriseId,
         industryOne: '',
         status: this.btnNum
       };
@@ -130,7 +142,7 @@ export default {
           left: '3%',
           right: '40',
           top: '30',
-          bottom: '90',
+          bottom: '110',
           containLabel: true
         },
         xAxis: {
@@ -159,7 +171,7 @@ export default {
         series: series
       }
 
-      this.mychart.setOption(option)
+      this.mychart.setOption(option,true)
 
       this.loading = false;
   	}

@@ -13,9 +13,9 @@
       <!-- tab1 -->
       <div class="stepOne">
         <indicators :indicatorsArr="indicatorsArr" /> 
-        <gongdian></gongdian>
-        <industry style="margin-bottom:10px;"></industry>
-        <cylinderx />
+        <gongdian :typeId="typeId"></gongdian>
+        <industry :typeId="typeId" style="margin-bottom:10px;"></industry>
+        <cylinderx :typeId="typeId"/>
         <cylindery />
         <tables :objDetail="works" :typeId="typeId" />
         <tables :objDetail="workPro" :typeId="typeId" />
@@ -133,10 +133,9 @@ export default {
     }
   },
   created() {
-    this.getTabsData()
   },
   mounted: function () {
-
+    this.getTabsData()
   },
   methods: {
     // 返回武汉按钮
