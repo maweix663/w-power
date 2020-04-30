@@ -12,7 +12,7 @@
     </div>
 
     <div class="text">
-      <span v-for="(item, index) in industryOneArr" @click="changeNum(item, index)" :key="item"><i :style="`background: ${color[index]};`"></i>{{ item }}</span>
+      <span v-for="(item, index) in industryOneArr" @click="changeNum(item, index)" :key="item"><i :style="`background: ${color[index]};`"></i>{{ item | textFort(index) }}</span>
     </div>
   </div>
 </template>
@@ -33,6 +33,37 @@ export default {
   props: {
     typeId: {
       type: String
+    }
+  },
+  filters: {
+    textFort (val, index) {
+      let str = ''
+      if (index == 0) {
+        str = '一、' + val
+      } else if (index == 1) {
+        str = '二、' + val
+      }else if (index == 2) {
+        str = '三、' + val
+      }else if (index == 3) {
+        str = '四、' + val
+      }else if (index == 4) {
+        str = '五、' + val
+      }else if (index == 5) {
+        str = '六、' + val
+      }else if (index == 6) {
+        str = '七、' + val
+      }else if (index == 7) {
+        str = '八、' + val
+      }else if (index == 8) {
+        str = '九、' + val
+      }else if (index == 9) {
+        str = '十、' + val
+      }else if (index == 10) {
+        str = '十一、' + val
+      }
+
+
+      return str
     }
   },
   watch: {
@@ -79,6 +110,7 @@ export default {
                   }
                 }
               },
+              barWidth : 10
             }
           ]
       }
@@ -123,10 +155,9 @@ export default {
       this.http.post('/resumeWork/industryRanking', params)
         .then(res => {
           let data = res.data
-          let x = []
+          let x = ['一', '二','三','四','五','六','七','八','九','十', '十一']
           let y = []
           data.map(item => {
-            x.push(item.industryOne)
             y.push(item.value)
           })
           console.log(color)
