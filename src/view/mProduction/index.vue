@@ -16,7 +16,8 @@
         <gongdian :typeId="typeId"></gongdian>
         <industry :typeId="typeId" style="margin-bottom:10px;"></industry>
         <cylinderx :typeId="typeId"/>
-        <cylindery />
+        <cylindery :typeId="typeId" />
+        <!-- <tables :objDetail="works" :tableData="tableWorksData" /> -->
         <tables :objDetail="works" :typeId="typeId" />
         <tables :objDetail="workPro" :typeId="typeId" />
         <search :typeId="typeId" />
@@ -68,62 +69,63 @@ export default {
         name: '复工电力指数周增幅',
         columns: [
           {
-            prop: 'data',
+            prop: 'date',
             label: '日期',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'powerIndex',
             label: '复工电力指数',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'weekRise',
             label: '周增长值',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'weekRiseRate',
             label: '周增幅',
             width: ''
           },
         ]
       },
+      tableWorksData: [],
       workPro: {
         name: '复工复产情况',
         columns: [
           {
-            prop: 'data',
+            prop: 'name',
             label: '供电区域',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'count',
             label: '户数',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'reWork',
             label: '已复工企业户数',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'reWorkRate',
             label: '复工率',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'electricitySum',
             label: '当日电量',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'refRate',
             label: '复产率',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'powerIndex',
             label: '复工电力指数',
             width: ''
           }
@@ -149,6 +151,7 @@ export default {
     handleClick (tab, event) {
       this.typeId = tab.$attrs.value
       this.getVitalData()
+      this.getTableWorksData()
     },
 
     // 获取企业tabs
@@ -165,6 +168,7 @@ export default {
           this.typeId = this.lists.types[0].id
 
           this.getVitalData()
+          this.getTableWorksData()
         })
         .catch(err => {})
     },
@@ -178,7 +182,19 @@ export default {
           this.indicatorsArr = res.data
         })
         .catch(err => {})
-    }
+    },
+
+    // 获取 复工电力周增幅 数据
+    getTableWorksData (params) {
+      this.http.post('/resumeWork/reWorkPowerRise', {
+        enterpriseId: this.typeId
+      })
+        .then(res => {
+          this.tableWorksData = res.data
+          
+        })
+        .catch(err => {})
+    },
   },
 }
 </script>

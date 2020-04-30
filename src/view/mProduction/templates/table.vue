@@ -6,14 +6,14 @@
         <p></p>
 
         <div v-if="objDetail.search" class="head-btn">
-          <a :class="{'btnLeft': true, 'active': isActive == 1}" @click="changeActive(isActive)">按供电区域</a>
-          <a :class="{'btnRight': true, 'active': isActive == 2}" @click="changeActive(isActive)">按行业类别</a>
+          <a :class="{'btnLeft': true, 'active': isActive == 0}" @click="changeActive(isActive)">按供电区域</a>
+          <a :class="{'btnRight': true, 'active': isActive == 1}" @click="changeActive(isActive)">按行业类别</a>
         </div>
       </div>
 
       <div class="body">
         <el-table
-        :data="tableData"
+        :data="tableDatas"
         style="width: 100%"
         height="300"
         :default-sort = "{prop: 'date', order: 'descending'}"
@@ -29,9 +29,9 @@
           :show-overflow-tooltip="!v.noTooltip"
           :sortable="v.sortable"
           width="180">
-          <template slot-scope="scope">
+          <!-- <template slot-scope="scope">
             {{ scope.$index + 1 }}
-          </template>
+          </template> -->
         </el-table-column>
       </el-table>
       </div>
@@ -46,32 +46,34 @@ export default {
     objDetail: {
       type: Object
     },
+    tableData: {
+      type: Array
+    },
     typeId: {
       type: String
     }
   },
   data() {
     return {
-      tableData: [
-        {
-          data: '111'
-        },
-        {
-          data: '222'
-        }
-      ],
-      isActive: 1
+      tableDatas: [],
+      isActive: 0
     }
   },
   watch: {
+    tableData (val) {
+      this.tableDatas = val
+    },
     typeId (val) {
-      this.getTabsData({
-        enterpriseId: val
-      })
-    }
+      this.getWorksData()
+    },
   },
   created() {
-
+    if (this.objDetail.search) {
+      this.tableDatas = this.tableData
+    } else {
+      this.getWorksData()
+    }
+    
   },
   mounted: function () {
 
@@ -79,18 +81,22 @@ export default {
   methods: {
     // 切换查询条件
     changeActive (active) {
-      if (active == 1) {
-        this.isActive = 2
-      } else {
+      if (active == 0) {
         this.isActive = 1
+      } else {
+        this.isActive = 0
       }
+      this.getWorksData()
     },
 
-    // 获取 区域
-    getTabsData (params) {
-      this.http.post('/resumeWork/listDivision', params)
+    // 获取 复工复产 数据
+    getWorksData () {
+      this.http.post('/resumeWork/reWorkCase', {
+        enterpriseId: this.typeId,
+        status: this.isActive
+      })
         .then(res => {
-          console.log(res)
+          this.tableDatas = res.data
         })
         .catch(err => {})
     },
