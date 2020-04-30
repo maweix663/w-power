@@ -18,7 +18,7 @@
         <cylinderx />
         <cylindery />
         <tables :objDetail="works" :tableData="tableWorksData" />
-        <tables :objDetail="workPro" />
+        <tables :objDetail="workPro" :typeId="typeId"/>
         <search :typeId="typeId" />
       </div>
     </div>
@@ -94,37 +94,37 @@ export default {
         name: '复工复产情况',
         columns: [
           {
-            prop: 'data',
+            prop: 'name',
             label: '供电区域',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'count',
             label: '户数',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'reWork',
             label: '已复工企业户数',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'reWorkRate',
             label: '复工率',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'electricitySum',
             label: '当日电量',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'refRate',
             label: '复产率',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'powerIndex',
             label: '复工电力指数',
             width: ''
           }
