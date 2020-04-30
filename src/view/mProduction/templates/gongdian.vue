@@ -6,7 +6,7 @@
     </div>
     <div class="recoveryCondition-area">
       <div class="btn-top" :class="{active: isActive('全市')}" @click="toggleShow('全市')" style="font-weight:bold;">全市></div>
-      <div class="btn-top" v-for="(item,i) in areaList" :class="{active: isActive(item)}" @click="toggleShow(item)"><span :style="{backgroundColor: colorList[i]}"></span>{{ item }}</div>
+      <div class="btn-top" v-for="(item,i) in areaList" v-if="i!=0" :class="{active: isActive(item)}" @click="toggleShow(item)"><span :style="{backgroundColor: colorList[i], fontWeight: (item=='全市'?'bold':'normal')}"></span>{{ item }}</div>
     </div>
     <div id="recoveryCondition" style="width: 100%; height:200px;" v-loading="loading"></div>
     <div class="btn-bottom">
@@ -26,18 +26,18 @@ export default {
       loading: false,
       areaList: [],
 
-
       mychart: '',
-      showArr: ['全市'],
+      showArea: [],
       allData: [], //所有处理好的数据
-      colorList: ['#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
-      btnNum: 0,  //复工类型 默认0(0=复工率，1=复产率，2=复工电力指数)
+      colorList: ['#000000','#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+      showColor: [],
+      btnNum: 2,  //复工类型 默认0(0=复工率，1=复产率，2=复工电力指数)
 
     }
   },
   created () {
     this.getAreaList();  //获取区域列表（复工复产情况区域参数）
-    this.getReWorkCaseData();  //复工复产情况
+    //this.getReWorkCaseData();  //复工复产情况
   },
   mounted () {
     //this.init()
@@ -50,9 +50,9 @@ export default {
       };
       this.http.post('/resumeWork/listDivision', params)
         .then(res => {
-          this.areaList = res.data || [];
+          this.areaList = ['全市'].concat(res.data || []);
           this.areaList.forEach((item,i)=>{
-            this.showArr.push(item);
+            this.showArea.push(item);
           })
 
           this.getEchartData()
@@ -60,29 +60,28 @@ export default {
         .catch(err => {})
     },
     reset(){
-      this.btnNum = 0;
-      this.showArr = ['全市']
+      this.btnNum = 2;
+      this.showArea = []
       this.areaList.forEach((item,i)=>{
-        this.showArr.push(item);
+        this.showArea.push(item);
       })
 
       this.getEchartData()
     },
     
     toggleShow(str) {
-      let num = this.showArr.indexOf(str);
+      let num = this.showArea.indexOf(str);
 
       if (num == -1) {
-        this.showArr.push(str);
+        this.showArea.push(str);
       }else{
-        this.showArr.splice(num,1);
+        this.showArea.splice(num,1);
       }
 
       this.getEchartData1();
     },
     isActive(str){
-      let num = this.showArr.indexOf(str);
-
+      let num = this.showArea.indexOf(str);
       if (num == -1) {
         return false
       }else{
@@ -91,15 +90,15 @@ export default {
     },
     changeBtnNum(n){
       this.btnNum = n;
-      this.showArr = ['全市']
+      this.showArea = []
       this.areaList.forEach((item,i)=>{
-        this.showArr.push(item);
+        this.showArea.push(item);
       })
       this.getEchartData();
     },
 
     getEchartData() {
-      if (this.showArr.length == 0) {
+      if (this.showArea.length == 0) {
         this.init([], []);
         return false
       }
@@ -107,7 +106,7 @@ export default {
       this.loading = true;
 
       let list = [];
-      this.showArr.forEach(item => {
+      this.showArea.forEach(item => {
         list.push(this.getReWorkCaseData(item));
       })  
 
@@ -118,18 +117,16 @@ export default {
     },
 
     getEchartData1(){
-      if (this.showArr.length == 0) {
+      if (this.showArea.length == 0) {
         this.init([], []);
         return false
       }
 
       this.loading = true;
 
-      let areaList = ['全市'].concat(this.areaList);
-
       let arr = [];
-      this.showArr.forEach(item=>{
-        let n = areaList.indexOf(item);
+      this.showArea.forEach(item=>{
+        let n = this.areaList.indexOf(item);
 
         arr.push(this.allData[n])
       })
@@ -141,7 +138,7 @@ export default {
     getReWorkCaseData(str) {
       return new Promise(resolve => {
         let params = {
-          division: str,
+          division: str == '全市' ? '' : str,
           enterpriseId: 'c725531a124043bc8127818a8f56d9e7',
           reWorkType: this.btnNum
         };
@@ -162,12 +159,17 @@ export default {
 
       console.log(2222,x)
 
+      this.showColor = [];
+
       let data = [];
-      this.showArr.forEach((item,i)=>{
+      this.showArea.forEach((item,i)=>{
         let y = [];
         arr[i].map(item1=>{
           y.push(Number(item1.value));
         })
+
+        let num = this.areaList.indexOf(item);
+        this.showColor.push(this.colorList[num])
 
         if(item == '全市'){
           data.push({
@@ -198,7 +200,7 @@ export default {
       this.mychart = this.$echarts.init(document.getElementById('recoveryCondition'))
       
       let option = {
-        color: ['#000'].concat(this.colorList),
+        color: this.showColor,
         tooltip: {
           trigger: 'axis'
         },
@@ -282,7 +284,7 @@ export default {
   .btn-bottom {
     display: flex; 
     justify-content: space-around; 
-    padding: 0 20px;
+    padding: 10px 20px 0;
 
     .active {
       color: #fff;

@@ -14,7 +14,7 @@
       <div class="stepOne">
         <indicators :indicatorsArr="indicatorsArr" /> 
         <gongdian></gongdian>
-        <industry></industry>
+        <industry style="margin-bottom:10px;"></industry>
         <cylinderx />
         <cylindery />
         <tables :objDetail="works" :tableData="tableWorksData" />
