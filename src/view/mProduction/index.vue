@@ -16,7 +16,7 @@
         <gongdian></gongdian>
         <industry style="margin-bottom:10px;"></industry>
         <cylinderx />
-        <cylindery />
+        <cylindery :typeId="typeId" />
         <tables :objDetail="works" :tableData="tableWorksData" />
         <tables :objDetail="workPro" :typeId="typeId"/>
         <search :typeId="typeId" />
@@ -135,7 +135,6 @@ export default {
   },
   created() {
     this.getTabsData()
-    this.getTableWorksData()
   },
   mounted: function () {
 
@@ -169,6 +168,7 @@ export default {
           this.typeId = this.lists.types[0].id
 
           this.getVitalData()
+          this.getTableWorksData()
         })
         .catch(err => {})
     },
