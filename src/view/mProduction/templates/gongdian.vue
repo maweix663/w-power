@@ -5,7 +5,7 @@
       <el-button round size="mini" class="titleBtn" @click="reset">&nbsp;重置&nbsp;</el-button>
     </div>
     <div class="recoveryCondition-area">
-      <div class="btn-top" :class="{active: isActive('全市')}" @click="toggleShow('全市')" style="font-weight:bold;">全市></div><div class="btn-top" v-for="(item,i) in areaList" v-if="i!=0" :class="{active: isActive(item)}" @click="toggleShow(item)"><span :style="{backgroundColor: colorList[i], fontWeight: (item=='全市'?'bold':'normal')}"></span>{{ item }}</div>
+      <div class="btn-top" :class="{active: isActive('全市')}" @click="toggleShow('全市')" style="font-weight:bold;">全市></div><div class="btn-top" v-for="(item,i) in allArea" v-if="i!=0" :class="{active: isActive(item)}" @click="toggleShow(item)"><span :style="{backgroundColor: colorList[i]}"></span>{{ item }}</div>
     </div>
     <div id="recoveryCondition" style="width: 100%; height:200px;" v-loading="loading"></div>
     <div class="btn-bottom">
@@ -28,13 +28,14 @@ export default {
   data () {
     return {
       loading: false,
-      areaList: [],
       enterpriseId: '',
 
       mychart: '',
+      allArea: [],
+      activeArea: [],
       showArea: [],
       allData: [], //所有处理好的数据
-      colorList: ['#000000','#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+      colorList: ['#000000','#4e79a7', '#a0cbe8', '#f28e2b', '#ffbe7d', '#59a14f', '#8cd17d', '#b6992d', '#f1ce63', '#499894', '#86bcb6', '#e15759', '#ffff00', '#f39800',  '#eb6100', '#ff0014', '#e40071', '#601986', '#1d2088', '#00479d', '#00a0e9', '#71ff45', '#8fc31f', '#22ac38', '#0c87ba', '#3a00ff', '#20c1d5', '#053549', '#ff353a', '#ff8b5c', '#ff105f', '#920783', '#ff9300','#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
       showColor: [],
       btnNum: 2,  //复工类型 默认0(0=复工率，1=复产率，2=复工电力指数)
 
@@ -60,51 +61,27 @@ export default {
       };
       this.http.post('/resumeWork/listDivision', params)
         .then(res => {
-          this.areaList = ['全市'].concat(res.data || []);
-          this.areaList.forEach((item,i)=>{
-            this.showArea.push(item);
+          this.activeArea = [];
+          this.showArea = [];
+
+          let arr = ['全市'].concat(res.data || []);
+          arr.forEach((item,i)=>{
+            this.allArea.push(item);  //所有区域数据 一直保持不变
+            this.showArea.push(item);  //显示数据区域  会随点击变化，初始显示所有
           })
 
           this.getEchartData()
         })
         .catch(err => {})
     },
-    reset(){
-      this.btnNum = 2;
-      this.showArea = []
-      this.areaList.forEach((item,i)=>{
-        this.showArea.push(item);
-      })
 
-      this.getEchartData()
-    },
-    
-    toggleShow(str) {
-      let num = this.showArea.indexOf(str);
-
-      if (num == -1) {
-        this.showArea.push(str);
-      }else{
-        this.showArea.splice(num,1);
-      }
-
-      this.getEchartData1();
-    },
     isActive(str){
-      let num = this.showArea.indexOf(str);
+      let num = this.activeArea.indexOf(str);
       if (num == -1) {
         return false
       }else{
         return true
       }
-    },
-    changeBtnNum(n){
-      this.btnNum = n;
-      this.showArea = []
-      this.areaList.forEach((item,i)=>{
-        this.showArea.push(item);
-      })
-      this.getEchartData();
     },
 
     getEchartData() {
@@ -126,24 +103,6 @@ export default {
       })
     },
 
-    getEchartData1(){
-      if (this.showArea.length == 0) {
-        this.init([], []);
-        return false
-      }
-
-      this.loading = true;
-
-      let arr = [];
-      this.showArea.forEach(item=>{
-        let n = this.areaList.indexOf(item);
-
-        arr.push(this.allData[n])
-      })
-
-      this.handleData(arr)
-    },
-
     //复工复产情况
     getReWorkCaseData(str) {
       return new Promise(resolve => {
@@ -160,14 +119,67 @@ export default {
       })  
     },
 
+
+    reset(){
+      this.btnNum = 2;
+      this.showArea = []
+      this.activeArea = []
+      this.allArea.forEach((item,i)=>{
+        this.showArea.push(item);
+      })
+
+      this.getEchartData()
+    },
+    
+    toggleShow(str) {
+      let num = this.activeArea.indexOf(str);
+
+      if (num == -1) {
+        this.activeArea.push(str);
+      }else{
+        this.activeArea.splice(num,1);
+      }
+
+      this.showArea = [].concat(this.activeArea);
+
+      this.getEchartData1();
+    },
+
+    //切换底部按钮
+    changeBtnNum(n){
+      this.btnNum = n;
+      this.showArea = []
+      this.activeArea = []
+      this.allArea.forEach((item,i)=>{
+        this.showArea.push(item);
+      })
+      this.getEchartData();
+    },
+
+    getEchartData1(){
+      if (this.showArea.length == 0) {
+        this.init([], []);
+        return false
+      }
+
+      this.loading = true;
+
+      let arr = [];
+      this.showArea.forEach(item=>{
+        let n = this.allArea.indexOf(item);
+
+        arr.push(this.allData[n])
+      })
+
+      this.handleData(arr)
+    },
+
+
     handleData(arr){
-      console.log(1111,arr)
       let x = [];
       arr[0].forEach(item=>{
         x.push(item.date);
       })
-
-      console.log(2222,x)
 
       this.showColor = [];
 
@@ -178,7 +190,7 @@ export default {
           y.push(Number(item1.value));
         })
 
-        let num = this.areaList.indexOf(item);
+        let num = this.allArea.indexOf(item);
         this.showColor.push(this.colorList[num])
 
         if(item == '全市'){
