@@ -179,10 +179,6 @@ export default {
     },
 
     init(legend, x, series, color) {
-      console.log(111,legend)
-      console.log(111,x)
-      console.log(111,series)
-      console.log(111,color)
       this.mychart = this.$echarts.init(document.getElementById('industry'))
       
       let option = {
@@ -247,7 +243,6 @@ export default {
       }
     },
 
-
     toggleShow(str) {
       let num = this.activeIndustry.indexOf(str);
 
@@ -261,6 +256,13 @@ export default {
 
       this.handleData();
     },
+
+    //切换底部按钮状态
+    changeBtnNum(n){
+      this.btnNum = n;
+      this.getListIndustry();
+    },
+
   }
 }
 </script>
