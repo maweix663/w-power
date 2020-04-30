@@ -9,7 +9,7 @@
       <el-table
         :data="tableData"
         style="width: 100%"
-        :default-sort = "{prop: 'date', order: 'descending'}"
+        :default-sort = "{prop: 'reElectricityPer', order: 'descending'}"
         >
         <el-table-column
           v-for="(v, i) in columns"
@@ -23,7 +23,9 @@
           :sortable="v.sortable"
           width="180">
           <template slot-scope="scope">
-            {{ scope.$index + 1 }}
+            <span v-if="v.prop == 'index'">{{ scope.$index + 1 }}</span>
+              
+            <span v-else>{{ scope.row[v.prop] }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -48,65 +50,65 @@ export default {
         {
           prop: 'index',
           label: '序号',
-          width: 60
+          width: 30
         },
         {
-          prop: 'data',
+          prop: 'dateTime',
           label: '日期',
-          sortable: true,
-          width: 60
+          width: ''
         },
         {
-          prop: 'a',
+          prop: 'city',
           label: '市',
-          sortable: true,
-          width: 60
+          width: ''
         },
         {
-          prop: 'b',
+          prop: 'county',
           label: '县',
-          sortable: true,
-          width: 60
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'powerStation',
           label: '供电所',
-          width: 60
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'accountNo',
           label: '户号',
-          width: 100
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'accountName',
           label: '户名',
-          width: 100
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'electricity',
           label: '当日电量',
-          width: 60
+          sortable: true,
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'refElectricity',
           label: '基准电量',
-          width: 60
+          sortable: true,
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'reElectricityPer',
           label: '复工电量比例',
-          width: 60
+          sortable: true,
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'reWork',
           label: '是否复工',
-          width: 60
+          width: ''
         },
         {
-          prop: 'data',
+          prop: 'industry',
           label: '行业分类',
-          width: 60
+          width: ''
         }
       ],
 
@@ -121,7 +123,10 @@ export default {
     }
   },
   created() {
-
+    this.getListData({
+      ...this.$route.query
+    })
+    
   },
   mounted: function () {
 
@@ -132,6 +137,17 @@ export default {
       this.$router.push({
         path: '/mProduction'
       });
+    },
+
+    // 列表数据
+    getListData (params) {
+      this.http.post('/resumeWork/reWorkDetails', params)
+        .then(res => {
+          this.tableData = res.data
+        })
+        .catch(err => {
+
+        })
     },
   },
 }

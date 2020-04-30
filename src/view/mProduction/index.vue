@@ -3,10 +3,7 @@
     <div class="header">
       <h3 class="title">复工复产</h3>
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="全市高压企业" name="first"></el-tab-pane>
-        <el-tab-pane label="规上工业企业" name="second"></el-tab-pane>
-        <el-tab-pane label="行业重点企业" name="third"></el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
+        <el-tab-pane v-for="(item, index) in lists.types" :label="item.enterpriseType" :value="item.id" :name="item.name" :key="index"></el-tab-pane>
       </el-tabs>
     </div>
 
@@ -15,14 +12,14 @@
     <div class="main">
       <!-- tab1 -->
       <div class="stepOne">
-        <indicators /> 
+        <indicators :indicatorsArr="indicatorsArr" /> 
         <gongdian></gongdian>
         <industry style="margin-bottom:10px;"></industry>
         <cylinderx />
         <cylindery />
-        <tables :objDetail="works" />
-        <tables :objDetail="workPro" />
-        <search />
+        <tables :objDetail="works" :typeId="typeId" />
+        <tables :objDetail="workPro" :typeId="typeId" />
+        <search :typeId="typeId" />
       </div>
     </div>
 
@@ -57,8 +54,16 @@ export default {
   data() {
     return {
       // 标题
-      activeName: 'first',
+      activeName: '0',
 
+      lists: {
+        types: []
+      },
+
+      typeId: '',
+
+      // 关键指标
+      indicatorsArr: [],
       works: {
         name: '复工电力指数周增幅',
         columns: [
@@ -128,7 +133,7 @@ export default {
     }
   },
   created() {
-
+    this.getTabsData()
   },
   mounted: function () {
 
@@ -143,7 +148,37 @@ export default {
 
     // tabs 切换
     handleClick (tab, event) {
+      this.typeId = tab.$attrs.value
+      this.getVitalData()
+    },
 
+    // 获取企业tabs
+    getTabsData () {
+      let params = {}
+      this.http.post('/resumeWork/listEnterprise', params)
+        .then(res => {
+          this.lists.types = [].concat(res.data)
+
+          this.lists.types.map((item, index) => {
+            item.name = index + ''
+          })
+          
+          this.typeId = this.lists.types[0].id
+
+          this.getVitalData()
+        })
+        .catch(err => {})
+    },
+
+    // 关键指标数据
+    getVitalData () {
+      this.http.post('/resumeWork/getVitalData', {
+        enterpriseId: this.typeId
+      })
+        .then(res => {
+          this.indicatorsArr = res.data
+        })
+        .catch(err => {})
     }
   },
 }

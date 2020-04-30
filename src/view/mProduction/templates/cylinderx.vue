@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 0 0 10px 0" class="industry itemBox">
+  <div style="margin: 10px 0 10px 0" class="industry itemBox">
     <div class="changeBtn">
       <el-select v-model="value" size="mini" placeholder="请选择">
         <el-option

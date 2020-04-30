@@ -9,42 +9,42 @@
       <div class="body">
         <div class="flex">
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colora">-135</span></p>
-            <p class="text-content colora">1217</p>
-            <p class="text-title">监测总户数</p>
+            <p class="text-head">较上日<span class="colora">{{ arrs[0].complate }}</span></p>
+            <p class="text-content colora">{{ arrs[0].value }}</p>
+            <p class="text-title">{{ arrs[0].name }}</p>
           </div>
 
           <div class="content">
-            <p class="text-head">较上日<span class="colorb">-135</span></p>
-            <p class="text-content colorb">1217</p>
-            <p class="text-title">监测总户数</p>
+            <p class="text-head">较上日<span class="colorb">{{ arrs[1].complate }}</span></p>
+            <p class="text-content colorb">{{ arrs[1].value }}</p>
+            <p class="text-title">{{ arrs[1].name }}</p>
           </div>
 
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colorc">-135</span></p>
-            <p class="text-content colorc">1217</p>
-            <p class="text-title">监测总户数</p>
+            <p class="text-head">较上日<span class="colorc">{{ arrs[2].complate }}</span></p>
+            <p class="text-content colorc">{{ arrs[2].value }}</p>
+            <p class="text-title">{{ arrs[2].name }}</p>
           </div>
         </div>
 
         <div class="flex" style="border-bottom: 0;">
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colord">-135</span></p>
-            <p class="text-content colord">1217</p>
-            <p class="text-title">当日用电量</p>
+            <p class="text-head">较上日<span class="colord">{{ arrs[3].complate }}</span></p>
+            <p class="text-content colord">{{ arrs[3].value }}</p>
+            <p class="text-title">{{ arrs[3].name }}</p>
             <p class="colord" style="text-align: center;">（万千瓦时）</p>
           </div>
 
           <div class="content">
-            <p class="text-head">较上日<span class="colore">-135</span></p>
-            <p class="text-content colore">1217</p>
-            <p class="text-title">监测总户数</p>
+            <p class="text-head">较上日<span class="colore">{{ arrs[4].complate }}</span></p>
+            <p class="text-content colore">{{ arrs[4].value }}</p>
+            <p class="text-title">{{ arrs[4].name }}</p>
           </div>
 
           <div class="flex-column">
-            <p class="text-head">较上日<span class="colorf">-135</span></p>
-            <p class="text-content colorf">1217</p>
-            <p class="text-title">监测总户数</p>
+            <p class="text-head">较上日<span class="colorf">{{ arrs[5].complate }}</span></p>
+            <p class="text-content colorf">{{ arrs[5].value }}</p>
+            <p class="text-title">{{ arrs[5].name }}</p>
           </div>
         </div>
 
@@ -89,13 +89,55 @@
 <script>
   export default {
     name: "step",
+    props: {
+      indicatorsArr: {
+        type: Array
+      }
+    },
     data() {
       return {
-        dialogVisible: false
+        dialogVisible: false,
+        arrs: [
+          {
+            name: '',
+            value: '',
+            complate: ''
+          },
+          {
+            name: '',
+            value: '',
+            complate: ''
+          },
+          {
+            name: '',
+            value: '',
+            complate: ''
+          },
+          {
+            name: '',
+            value: '',
+            complate: ''
+          },
+          {
+            name: '',
+            value: '',
+            complate: ''
+          },
+          {
+            name: '',
+            value: '',
+            complate: ''
+          }
+        ]
       }
     },
     created() {
-
+      
+    },
+    watch: {
+      indicatorsArr (val) {
+        this.arrs = val
+      }
     },
     mounted: function () {
 
