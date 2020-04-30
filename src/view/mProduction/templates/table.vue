@@ -13,7 +13,7 @@
 
       <div class="body">
         <el-table
-        :data="tableData"
+        :data="tableDatas"
         style="width: 100%"
         height="300"
         :default-sort = "{prop: 'date', order: 'descending'}"
@@ -29,9 +29,9 @@
           :show-overflow-tooltip="!v.noTooltip"
           :sortable="v.sortable"
           width="180">
-          <template slot-scope="scope">
+          <!-- <template slot-scope="scope">
             {{ scope.$index + 1 }}
-          </template>
+          </template> -->
         </el-table-column>
       </el-table>
       </div>
@@ -46,32 +46,23 @@ export default {
     objDetail: {
       type: Object
     },
-    typeId: {
-      type: String
+    tableData: {
+      type: Array
     }
   },
   data() {
     return {
-      tableData: [
-        {
-          data: '111'
-        },
-        {
-          data: '222'
-        }
-      ],
+      tableDatas: [],
       isActive: 1
     }
   },
   watch: {
-    typeId (val) {
-      this.getTabsData({
-        enterpriseId: val
-      })
+    tableData (val) {
+      this.tableDatas = val
     }
   },
   created() {
-
+    this.tableDatas = this.tableData
   },
   mounted: function () {
 
@@ -84,16 +75,7 @@ export default {
       } else {
         this.isActive = 1
       }
-    },
-
-    // 获取 区域
-    getTabsData (params) {
-      this.http.post('/resumeWork/listDivision', params)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {})
-    },
+    }
   },
 }
 </script>

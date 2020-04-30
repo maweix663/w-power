@@ -17,8 +17,8 @@
         <industry></industry>
         <cylinderx />
         <cylindery />
-        <tables :objDetail="works" :typeId="typeId" />
-        <tables :objDetail="workPro" :typeId="typeId" />
+        <tables :objDetail="works" :tableData="tableWorksData" />
+        <tables :objDetail="workPro" />
         <search :typeId="typeId" />
       </div>
     </div>
@@ -68,27 +68,28 @@ export default {
         name: '复工电力指数周增幅',
         columns: [
           {
-            prop: 'data',
+            prop: 'date',
             label: '日期',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'powerIndex',
             label: '复工电力指数',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'weekRise',
             label: '周增长值',
             width: ''
           },
           {
-            prop: 'data',
+            prop: 'weekRiseRate',
             label: '周增幅',
             width: ''
           },
         ]
       },
+      tableWorksData: [],
       workPro: {
         name: '复工复产情况',
         columns: [
@@ -134,6 +135,7 @@ export default {
   },
   created() {
     this.getTabsData()
+    this.getTableWorksData()
   },
   mounted: function () {
 
@@ -150,6 +152,7 @@ export default {
     handleClick (tab, event) {
       this.typeId = tab.$attrs.value
       this.getVitalData()
+      this.getTableWorksData()
     },
 
     // 获取企业tabs
@@ -179,7 +182,19 @@ export default {
           this.indicatorsArr = res.data
         })
         .catch(err => {})
-    }
+    },
+
+    // 获取 复工电力周增幅 数据
+    getTableWorksData (params) {
+      this.http.post('/resumeWork/reWorkPowerRise', {
+        enterpriseId: this.typeId
+      })
+        .then(res => {
+          this.tableWorksData = res.data
+          
+        })
+        .catch(err => {})
+    },
   },
 }
 </script>
