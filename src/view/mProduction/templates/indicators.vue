@@ -251,7 +251,7 @@
 .step {
   .el-dialog__header {
     text-align: center;
-    background: #c1f8de;
+    background: #f0f7f2;
   }
 
   .el-dialog__body {

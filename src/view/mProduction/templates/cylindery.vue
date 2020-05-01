@@ -160,7 +160,6 @@ export default {
           data.map(item => {
             y.push(item.value)
           })
-          console.log(color)
           this.init(x, y, color)
         })
         .catch(err => {

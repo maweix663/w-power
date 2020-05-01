@@ -97,7 +97,8 @@ export default {
           {
             prop: 'name',
             label: '供电区域',
-            width: ''
+            width: '',
+            fixed: 'left'
           },
           {
             prop: 'count',
@@ -284,6 +285,7 @@ export default {
       p {
         line-height: 28px;
         color: #fff;
+        font-size: 14px;
       }
     }
 
@@ -299,8 +301,21 @@ export default {
     color: #fff;
   }
 
+  .el-tabs__item.is-active {
+    color: #fff;
+  }
+
   .el-tabs__active-bar {
     background-color: #fff;
+    height: 4px;
+  }
+  .el-tabs__nav-scroll {
+    flex-grow: 1;
+    overflow-x: auto;
+  }
+
+  .el-tabs__nav-next,.el-tabs__nav-prev {
+    display: none;
   }
 
   .el-tabs__nav-wrap::after {
