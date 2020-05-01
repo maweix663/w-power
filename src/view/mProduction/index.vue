@@ -16,7 +16,8 @@
         <gongdian :typeId="typeId"></gongdian>
         <industry :typeId="typeId" style="margin-bottom:10px;"></industry>
         <cylinderx :typeId="typeId"/>
-        <cylindery :typeId="typeId" />
+        <cylindery :typeId="typeId"/>
+        <tableTop10  :typeId="typeId"/>
         <tables :objDetail="works" :tableData="tableWorksData" />
         <!-- <tables :objDetail="works" :typeId="typeId" /> -->
         <tables :objDetail="workPro" :typeId="typeId" />
@@ -39,6 +40,7 @@ import gongdian from './templates/gongdian.vue'
 import industry from './templates/industry.vue'
 import cylinderx from './templates/cylinderx'
 import cylindery from './templates/cylindery'
+import tableTop10 from './templates/tableTop10'
 import tables from './templates/table'
 import search from './templates/search'
 export default {
@@ -50,6 +52,7 @@ export default {
     cylinderx,
     cylindery,
     search,
+    tableTop10,
     tables,
   },
   data() {
