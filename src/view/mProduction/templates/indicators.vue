@@ -55,6 +55,7 @@
     <el-dialog
       title="指标说明"
       :visible.sync="dialogVisible"
+      :modal-append-to-body="false"
       width="80%">
       <div class="diaBox">
         <div class="text">
@@ -250,7 +251,7 @@
 .step {
   .el-dialog__header {
     text-align: center;
-    background: #c1f8de;
+    background: #f0f7f2;
   }
 
   .el-dialog__body {

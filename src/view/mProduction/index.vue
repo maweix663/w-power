@@ -97,12 +97,12 @@ export default {
           {
             prop: 'name',
             label: '供电区域',
-            width: ''
+            width: '40'
           },
           {
             prop: 'count',
             label: '户数',
-            width: ''
+            width: '40'
           },
           {
             prop: 'reWork',
@@ -112,22 +112,22 @@ export default {
           {
             prop: 'reWorkRate',
             label: '复工率',
-            width: ''
+            width: '40'
           },
           {
             prop: 'electricitySum',
             label: '当日电量',
-            width: ''
+            width: '50'
           },
           {
             prop: 'refRate',
             label: '复产率',
-            width: ''
+            width: '50'
           },
           {
             prop: 'powerIndex',
             label: '复工电力指数',
-            width: ''
+            width: '50'
           }
         ],
         search: true
@@ -284,6 +284,7 @@ export default {
       p {
         line-height: 28px;
         color: #fff;
+        font-size: 14px;
       }
     }
 
@@ -301,6 +302,15 @@ export default {
 
   .el-tabs__active-bar {
     background-color: #fff;
+    height: 4px;
+  }
+  .el-tabs__nav-scroll {
+    flex-grow: 1;
+    overflow-x: auto;
+  }
+
+  .el-tabs__nav-next,.el-tabs__nav-prev {
+    display: none;
   }
 
   .el-tabs__nav-wrap::after {
