@@ -55,6 +55,7 @@
     <el-dialog
       title="指标说明"
       :visible.sync="dialogVisible"
+      :modal-append-to-body="false"
       width="80%">
       <div class="diaBox">
         <div class="text">
