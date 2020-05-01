@@ -15,7 +15,7 @@
         <el-table
         :data="tableDatas"
         style="width: 100%"
-        height="300"
+        max-height="300"
         :default-sort = "{prop: 'date', order: 'descending'}"
         >
         <el-table-column
