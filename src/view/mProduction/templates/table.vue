@@ -25,6 +25,7 @@
           :prop="v.prop" 
           :width="v.width" 
           :min-width="v.minWidth" 
+          :fixed="v.fixed"
           :align="v.align || 'center'" 
           :show-overflow-tooltip="!v.noTooltip"
           :sortable="v.sortable">
