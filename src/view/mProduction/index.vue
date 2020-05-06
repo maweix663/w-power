@@ -12,7 +12,7 @@
       <img class="banner" src="/static/img/work/headBg.png">
       <!-- tab1 -->
       <div class="stepOne">
-        <indicators :indicatorsArr="indicatorsArr" /> 
+        <indicators :indicatorsArr="indicatorsArr" :headTime="headTime" /> 
         <gongdian :typeId="typeId"></gongdian>
         <industry :typeId="typeId" style="margin-bottom:10px;"></industry>
         <cylinderx :typeId="typeId"/>
@@ -68,6 +68,7 @@ export default {
 
       // 关键指标
       indicatorsArr: [],
+      headTime: '',
       works: {
         name: '复工电力指数周增幅',
         columns: [
@@ -156,6 +157,7 @@ export default {
       this.typeId = tab.$attrs.value
       this.getVitalData()
       this.getTableWorksData()
+      this.getHeadData()
     },
 
     // 获取企业tabs
@@ -173,6 +175,7 @@ export default {
 
           this.getVitalData()
           this.getTableWorksData()
+          this.getHeadData()
         })
         .catch(err => {})
     },
@@ -184,6 +187,17 @@ export default {
       })
         .then(res => {
           this.indicatorsArr = res.data
+        })
+        .catch(err => {})
+    },
+
+    // 关键指标-时间
+    getHeadData () {
+      this.http.post('/resumeWork/getDate', {
+        enterpriseId: this.typeId
+      })
+        .then(res => {
+          this.headTime = res.data
         })
         .catch(err => {})
     },

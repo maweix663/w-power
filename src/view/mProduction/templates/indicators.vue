@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <p class="data">统计日期：2020-04-22</p>
+        <p class="data">统计日期：{{ headTimes }}</p>
       </div>
     </div>
     
@@ -93,6 +93,9 @@
     props: {
       indicatorsArr: {
         type: Array
+      },
+      headTime: {
+        type: String
       }
     },
     data() {
@@ -129,7 +132,8 @@
             value: '',
             complate: ''
           }
-        ]
+        ],
+        headTimes: ''
       }
     },
     created() {
@@ -138,6 +142,9 @@
     watch: {
       indicatorsArr (val) {
         this.arrs = val
+      },
+      headTime (val) {
+        this.headTimes = val
       }
     },
     mounted: function () {

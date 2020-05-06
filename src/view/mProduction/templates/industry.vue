@@ -113,7 +113,6 @@ export default {
       })  
       Promise.all(list).then(arr => {
         this.allData = arr
-        console.log(1111,arr);
         this.handleData();
       })
     },
@@ -130,7 +129,6 @@ export default {
         this.http.post('/resumeWork/industryPowerCase', params)
         .then(res => {
           let data = res.data || [];
-          console.log(1111,data);
           resolve(data)
         })
         .catch(err => {})
@@ -150,8 +148,6 @@ export default {
       let x = [];
       let series = [];
 
-      console.log(222, this.showIndustry);
-
       this.showIndustry.forEach(item=>{
         let num = this.allIndustry.indexOf(item);  // 获取当前展示项index
         this.showColor.push(this.color[num]);
@@ -161,7 +157,6 @@ export default {
         x = [];
         let arr = [];
 
-        console.log(3333,this.allData[num])
         this.allData[num][0].list.forEach(item1=>{
           let d = item1.date.slice(4,8);
           let d1 = d.slice(0,2);
