@@ -1,6 +1,6 @@
 <template>
   <div style="margin: 10px 0 10px 0" class="cylinderx itemBox">
-    <el-select v-model="value"  class="top-select" placeholder="请选择" @change="getCountyRanking">
+    <el-select v-model="value" size="small" class="top-select" placeholder="请选择" @change="getCountyRanking">
       <el-option
         v-for="item in options"
         :key="item"
@@ -144,7 +144,7 @@ export default {
                 data: [
                   {
                     type: 'average',
-                    name: '平均数',
+                    name: '平均值',
                     label: {
                       normal: {
                         position: 'end',
@@ -180,7 +180,7 @@ export default {
       padding-left: 0;
       border: none;
       outline: none;
-      width: 100px;
+      width: 150px;
     }
   }
 

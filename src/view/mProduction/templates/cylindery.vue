@@ -124,6 +124,7 @@ export default {
         enterpriseId: this.typeId
       })
         .then(res => {
+          console.log(res.data)
           this.industryOneArr = res.data
           
         })
