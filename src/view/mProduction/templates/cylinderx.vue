@@ -144,7 +144,7 @@ export default {
                 data: [
                   {
                     type: 'average',
-                    name: '平均数',
+                    name: '平均值',
                     label: {
                       normal: {
                         position: 'end',
@@ -180,7 +180,7 @@ export default {
       padding-left: 0;
       border: none;
       outline: none;
-      width: 100px;
+      width: 150px;
     }
   }
 

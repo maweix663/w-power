@@ -179,7 +179,11 @@ export default {
     handleData(arr){
       let x = [];
       arr[0].forEach(item=>{
-        x.push(item.date);
+        let d = item.date.slice(4,8);
+        let d1 = d.slice(0,2);
+        let d2 = d.slice(2,4);
+        x.push(Number(d1)+'.'+Number(d2));
+        //x.push(item.date);
       })
 
       this.showColor = [];
