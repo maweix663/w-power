@@ -163,7 +163,10 @@ export default {
 
         console.log(3333,this.allData[num])
         this.allData[num][0].list.forEach(item1=>{
-          x.push(item1.date);
+          let d = item1.date.slice(4,8);
+          let d1 = d.slice(0,2);
+          let d2 = d.slice(2,4);
+          x.push(Number(d1)+'.'+Number(d2));
           arr.push(Number(item1.value));
         })
         
@@ -206,13 +209,16 @@ export default {
         xAxis: {
           name: '日期',
           type: 'category',
+          axisLabel: {
+            interval: 0
+          },
           axisTick: {
             show: false
           },
           boundaryGap: false,
           data: x        },
         yAxis: {
-          name: '指数',
+          //name: '指数',
           axisLine: {
             show: true
           },

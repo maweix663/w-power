@@ -1,7 +1,7 @@
 <template>
   <div style="margin: 10px 0 10px 0" class="industry itemBox">
     <div class="itemTitle">
-      当日各供电区域指标排名
+      当日各行业类别指标排名
     </div>
 
     <div id="ytindustry" style="width: 100%; height:250px; margin-top: 10px"></div>
@@ -91,12 +91,28 @@ export default {
       this.mychart = this.$echarts.init(document.getElementById('ytindustry'))
       
       let option = {
+          grid: {
+            left: '3%',
+            right: 5,
+            top: 20,
+            bottom: '3%',
+            containLabel: true
+          },
           xAxis: {
             type: 'category',
+            axisLabel: {
+              interval: 0
+            },
+            axisTick: {
+              show: false
+            },
             data: xData
           },
           yAxis: {
-            type: 'value'
+            type: 'value',
+            axisTick: {
+              show: false
+            },
           },
           series: [
             {
