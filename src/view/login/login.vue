@@ -81,23 +81,19 @@
           username: this.account,
           password: Base64.encode(this.pwd)
         };
-        // this.http.post('/login', params).then(res => {
-        //   localStorage.token = res.date.token;
-        //   localStorage.userId = Base64.encode(this.account);
-        //   localStorage.userId2 = this.account;
-        //   this.clearCookie();
-        //   this.getDate();
-        // })
-        // .catch(err => {
-        //   localStorage.token = "";
-        //   this.$message.error({
-        //     message: err.msg,
-        //     center: true
-        //   });
-        // })
-
-        this.$router.push({
-          path: '/mProduction'
+        this.http.post('/login', params).then(res => {
+          localStorage.token = res.date.token;
+          localStorage.userId = Base64.encode(this.account);
+          localStorage.userId2 = this.account;
+          this.clearCookie();
+          this.getDate();
+        })
+        .catch(err => {
+          localStorage.token = "";
+          this.$message.error({
+            message: err.msg,
+            center: true
+          });
         })
       },
       //设置cookie

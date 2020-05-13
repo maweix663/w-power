@@ -148,7 +148,7 @@ export default {
     // 返回武汉按钮
     returnBtn() {
       this.$router.push({
-        path: '/homeWuhan'
+        path: '/whHomeMove'
       });
     },
 

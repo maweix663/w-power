@@ -147,11 +147,9 @@
           password: this.pwd
         };
         this.http.post('/app/appLogin', params).then(res => {
-          // sessionStorage.setItem('token', res.date.token)
+          sessionStorage.setItem('token', res.data.token)
           this.clearCookie();
-          this.$router.push({
-            path: '/mProduction'
-          })
+          this.getDate()
         })
         .catch(err => {
           sessionStorage.setItem('token', '')
@@ -214,7 +212,7 @@
                   });
                 } else {
                   this.$router.push({
-                    path: '/workMove'
+                    path: '/mProduction'
                   });
                 }
                 return
