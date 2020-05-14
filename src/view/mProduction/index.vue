@@ -14,10 +14,10 @@
       <div class="stepOne">
         <indicators :indicatorsArr="indicatorsArr" :headTime="headTime" /> 
         <gongdian :typeId="typeId"></gongdian>
-        <industry :typeId="typeId" style="margin-bottom:10px;"></industry>
+        <industry :typeId="typeId" style="margin-bottom:10px;" v-show="typeId != 'c075abf09b2a475fa3451d2916d1a78f' && typeId != '019afc55f0354470b2413b4992050b1c'"></industry>
         <cylinderx :typeId="typeId"/>
-        <cylindery :typeId="typeId"/>
-        <tableTop10  :typeId="typeId"/>
+        <cylindery :typeId="typeId" v-show="typeId != 'c075abf09b2a475fa3451d2916d1a78f' && typeId != '019afc55f0354470b2413b4992050b1c'"/>
+        <tableTop10  :typeId="typeId" v-show="typeId != '8890d5f9f3324bd89dfc0213c6b4a7fd'"/>
         <tables :objDetail="works" :tableData="tableWorksData" />
         <!-- <tables :objDetail="works" :typeId="typeId" /> -->
         <tables :objDetail="workPro" :typeId="typeId" />

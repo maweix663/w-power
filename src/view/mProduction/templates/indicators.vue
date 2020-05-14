@@ -243,6 +243,8 @@
 
         .text-title {
           text-align: center;
+          color: #000;
+          font-size: 14px;
         }
       }
 

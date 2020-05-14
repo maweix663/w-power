@@ -180,7 +180,7 @@ export default {
       padding-left: 0;
       border: none;
       outline: none;
-      width: 150px;
+      width: 120px;
     }
   }
 

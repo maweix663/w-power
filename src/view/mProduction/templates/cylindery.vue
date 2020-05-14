@@ -113,6 +113,11 @@ export default {
             axisTick: {
               show: false
             },
+            axisLabel:{
+            formatter(val){
+              return val+'%'
+            }
+          },
           },
           series: [
             {
@@ -123,6 +128,18 @@ export default {
                   color: (params) => {
                       var colorList = color
                       return colorList[params.dataIndex];
+                  },
+                }
+              },
+              label: {
+                normal: {
+                  show: true,
+                  fontSize: 12,
+                  color: '#888',
+                  position: 'top',
+                  formatter(val){
+                    console.log(val)
+                    return val.data+'%'
                   }
                 }
               },

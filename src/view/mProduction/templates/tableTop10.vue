@@ -4,7 +4,8 @@
       <div class="head">
         {{ objDetail.name }}
         <p></p>
-
+      </div>
+      <div>
         <el-select v-model="selectValue" placeholder="请选择" class="top-select" @change="changeArea">
           <el-option
             v-for="(item, index) in industryOneArr"
@@ -174,16 +175,13 @@ export default {
   }
 
   .top-select {
-    position: absolute;
-    top: 12px;
-    right: 10px;
-
+    width: 100%;
     /deep/ .el-input__inner {
       text-align: right;
       padding-left: 0;
       border: none;
       outline: none;
-      width: 100px;
+      width: 100%;
     }
   }
 

@@ -19,7 +19,7 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item size="small" style="margin-bottom: 20px;" label="供电单所" prop="powerStation">
+          <el-form-item size="small" style="margin-bottom: 20px;" label="供电所" prop="powerStation">
             <el-select v-model="ruleForm.powerStation" placeholder="请选择">
               <el-option
                 v-for="item in lists.powerStations"

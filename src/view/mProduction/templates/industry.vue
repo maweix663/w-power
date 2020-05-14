@@ -197,7 +197,7 @@ export default {
         grid: {
           left: '3%',
           right: '40',
-          top: '30',
+          top: '35',
           bottom: '10',
           containLabel: true
         },
@@ -213,7 +213,7 @@ export default {
           boundaryGap: false,
           data: x        },
         yAxis: {
-          //name: '指数',
+          name: '指数',
           axisLine: {
             show: true
           },
