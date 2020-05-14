@@ -145,6 +145,7 @@ export default {
                   {
                     type: 'average',
                     name: '平均值',
+                    symbol: 'none',
                     label: {
                       normal: {
                         position: 'end',

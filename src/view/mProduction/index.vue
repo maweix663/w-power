@@ -342,5 +342,18 @@ export default {
   .el-tabs__nav-next, .el-tabs__nav-prev{
     color: #fff;
   }
+
+  .el-table__header {
+    th>.cell {
+      font-size: 10px;
+      padding: 0 2px;
+    }
+  }
+
+  .el-table__body {
+    .cell {
+      font-size: 10px;
+    }
+  }
 }
 </style>
