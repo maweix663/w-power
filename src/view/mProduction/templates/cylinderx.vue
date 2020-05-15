@@ -1,16 +1,18 @@
 <template>
   <div style="margin: 10px 0 10px 0" class="cylinderx itemBox">
-    <el-select v-model="value" size="small" class="top-select" placeholder="请选择" @change="getCountyRanking">
-      <el-option
-        v-for="item in options"
-        :key="item"
-        :label="item"
-        :value="item">
-      </el-option>
-    </el-select>
 		<div class="itemTitle">
 			当日各供电区域指标排名
 		</div>
+    <div>
+      <el-select v-model="value" size="small" class="top-select" placeholder="请选择" @change="getCountyRanking">
+        <el-option
+          v-for="item in options"
+          :key="item"
+          :label="item"
+          :value="item">
+        </el-option>
+      </el-select>
+    </div>
 
 		<div id="tindustry" style="width: 100%; height:300px; margin-top: 10px" v-loading="loading"></div>
 		<div class="btn-bottom">
@@ -173,16 +175,14 @@ export default {
 <style lang="scss" scoped>
 .cylinderx {
   .top-select {
-    position: absolute;
-    top: 12px;
-    right: 10px;
+    width: 100%;
 
     /deep/ .el-input__inner {
       text-align: right;
       padding-left: 0;
       border: none;
       outline: none;
-      width: 120px;
+      width: 100%;
     }
   }
 
