@@ -169,7 +169,7 @@ export default {
 
     .body {
       background: #fff;
-      padding: 10px;
+      padding: 0 10px 10px;
       box-sizing: border-box;
     }
   }
