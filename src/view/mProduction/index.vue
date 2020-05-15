@@ -122,7 +122,7 @@ export default {
           {
             prop: 'electricitySum',
             label: '当日电量',
-            width: ''
+            width: '150'
           },
           {
             prop: 'refRate',
