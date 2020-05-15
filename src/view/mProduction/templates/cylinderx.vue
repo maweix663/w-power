@@ -141,6 +141,7 @@ export default {
               data: data,
               type: 'bar',
               markLine: {
+                symbol: 'none',
                 data: [
                   {
                     type: 'average',
